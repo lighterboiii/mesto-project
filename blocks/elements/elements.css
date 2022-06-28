@@ -1,0 +1,19 @@
+.elements {
+  margin: 0 auto;
+  padding-bottom: 67px;
+  display: flex;
+  align-items: center;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .elements {
+    min-width: 282px;
+    width: 100%;
+    padding-bottom: 48px;
+    /* padding: 0 19px 48px; */
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .elements {
+    max-width: calc(100% - 38px);
+  }
+}

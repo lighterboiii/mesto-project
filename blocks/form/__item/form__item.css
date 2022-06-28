@@ -1,0 +1,23 @@
+.form__item {
+  margin: 0;
+  padding: 0 0 13px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  width: 358px;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .form__item {
+    max-width: 238px;
+  }
+
+}
+

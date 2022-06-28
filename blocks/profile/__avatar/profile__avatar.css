@@ -1,0 +1,15 @@
+.profile__avatar {
+  margin: 0;
+  width: 120px;
+  height: 120px;
+  background-image: url(../../../images/kusteau.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  align-self: flex-start;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .profile__avatar {
+    margin: 0 auto;
+  }
+}

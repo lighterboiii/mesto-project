@@ -1,0 +1,17 @@
+.like-button {
+  position: relative;
+  margin: 0;
+  width: 25px;
+  background: url(../../images/like.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  border: none;
+}
+.like-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+.like-button:active {
+  background: #000000;
+}

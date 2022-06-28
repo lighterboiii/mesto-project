@@ -1,0 +1,24 @@
+.add-button {
+  box-sizing: border-box;
+  width: 150px;
+  height: 50px;
+  border: 2px solid #FFFFFF;
+  border-radius: 2px;
+  background: url(../../images/button-cross.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  align-self: center;
+  cursor: pointer;
+}
+.add-button:hover {
+  opacity: 0.6;
+  transition: opacity .2s ease-in-out;
+}
+
+@media screen and  (min-width: 320px) and (max-width: 767px) {
+  .add-button {
+    max-width: 282px;
+    width: 100%;
+  }
+}
