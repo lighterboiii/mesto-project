@@ -1,6 +1,6 @@
 .elements__row {
   margin: 0;
-  background: #FFFFFF;
+  background: #FFF;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
