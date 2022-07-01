@@ -3,8 +3,14 @@
   padding: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 30px;
   border: none;
   padding-bottom: 48px;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .form__fieldset {
+    padding-bottom: 45px;
+  }
 }
