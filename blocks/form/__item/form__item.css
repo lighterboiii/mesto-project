@@ -14,9 +14,9 @@
   line-height: 17px;
   width: 358px;
 }
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .form__item {
     max-width: 238px;
   }
-
 }
