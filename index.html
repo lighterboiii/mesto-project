@@ -82,17 +82,15 @@
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form class="form" name="edit-form">
         <fieldset class="form__fieldset">
-          <input class="form__item" type="text" id="name" name="name" placeholder="Ваше имя">
-          <input class="form__item" type="text" id="activity" name="activity" placeholder="О себе">
+          <input class="form__item form__item_type_name" type="text" id="name" name="name" placeholder="Ваше имя">
+          <input class="form__item form__item_type_job" type="text" id="activity" name="activity" placeholder="О себе">
         </fieldset>
-        <!-- не совсем понял, что вы имели ввиду, попросив оставить внутри формы только кнопку и инпуты,
-          поэтому убрал заголовок за пределы формы, но филдсет-обертку оставил для инпутов, чтобы задать разный отступ между
-          полями ввода и кнопкой "Сохранить" -->
         <button class="form__button" type="submit">Сохранить</button>
       </form>
       <button class="form__close-button" type="reset"></button>
     </div>
   </div>
+  <script src="scripts/index.js"></script>
 </body>
 
 </html>
