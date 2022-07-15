@@ -12,6 +12,3 @@
   opacity: 0.5;
   cursor: pointer;
 }
-.like-button:active {
-  background: #000000;
-}
