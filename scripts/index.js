@@ -44,6 +44,15 @@ submitButton.addEventListener('click', formSubmitHandler);
 addPhotoButton.addEventListener('click', addPhoto);
 closePopUpButton.addEventListener('click', closePopUp); // обработчики событий на кнопки
 
+// находим кнопки удаления
+const deleteButtons = document.querySelectorAll('.delete-button');
+// задаем обработчик событий для каждой кнопки из коллекции
+for (let deleteButton of deleteButtons) {
+  deleteButton.addEventListener('click', function() {
+    const elementItem = deleteButton.closest('.elements__item'); // удаление уже существующей карточки
+    elementItem.remove();
+});
+}
 
 // собираем добавление карточки на страницу
 // находим кнопку "Создать"
@@ -65,8 +74,17 @@ function createElement(evt) {
   element.querySelector('.elements__img').src = photoLink.value;
   // добавляем на страницу
   elementsList.prepend(element);
+  const deleteButton = document.querySelector('.delete-button'); // удаление только что созданной карточки
+  deleteButton.addEventListener('click', function() {
+    const elementItem = deleteButton.closest('.elements__item');
+    elementItem.remove();
+});
 
   closePopUp();
+
+  photoLink.value = '';
+  photoName.value = '';
 }
 // пишем обработчик событий на кнопку createButton
 createButton.addEventListener('click', createElement);
+
