@@ -48,10 +48,10 @@ closePopUpButton.addEventListener('click', closePopUp); // обработчик�
 const deleteButtons = document.querySelectorAll('.delete-button');
 // задаем обработчик событий для каждой кнопки из коллекции
 for (let deleteButton of deleteButtons) {
-  deleteButton.addEventListener('click', function() {
+  deleteButton.addEventListener('click', function () {
     const elementItem = deleteButton.closest('.elements__item'); // удаление уже существующей карточки
     elementItem.remove();
-});
+  });
 }
 
 // собираем добавление карточки на страницу
@@ -74,11 +74,15 @@ function createElement(evt) {
   element.querySelector('.elements__img').src = photoLink.value;
   // добавляем на страницу
   elementsList.prepend(element);
-  const deleteButton = document.querySelector('.delete-button'); // удаление только что созданной карточки
-  deleteButton.addEventListener('click', function() {
+  const deleteButton = document.querySelector('.delete-button'); // удаление созданной карточки
+  deleteButton.addEventListener('click', function () {
     const elementItem = deleteButton.closest('.elements__item');
     elementItem.remove();
-});
+  });
+  const likeButton = document.querySelector('.like-button');
+  likeButton.addEventListener('click', function () {
+    likeButton.classList.toggle('like-button_active'); // функция лайка созданной карточки
+  })
 
   closePopUp();
 
@@ -88,3 +92,11 @@ function createElement(evt) {
 // пишем обработчик событий на кнопку createButton
 createButton.addEventListener('click', createElement);
 
+// находим кнопки лайков
+const likeButtons = document.querySelectorAll('.like-button');
+// задаем обработчик событий для каждой кнопки из коллекции
+for (let likeButton of likeButtons) {
+  likeButton.addEventListener('click', function () {
+    likeButton.classList.toggle('like-button_active'); // функция лайка уже существующей карточки
+  });
+}
