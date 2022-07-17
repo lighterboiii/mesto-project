@@ -1,8 +1,4 @@
 .elements__row {
   margin: 0;
   background: #FFF;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 25px 15px 31px 21px;
 }

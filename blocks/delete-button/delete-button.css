@@ -13,7 +13,6 @@
     background-repeat: no-repeat;
     background-color: unset;
     transition: opacity .3s ease;
-    z-index: 3;
   }
 
   .photos__delete-button:hover {
