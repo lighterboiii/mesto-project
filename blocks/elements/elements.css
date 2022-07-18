@@ -1,19 +1,18 @@
 .elements {
   margin: 0 auto;
-  padding-bottom: 67px;
+  padding: 0 19px 67px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px 17px;
+  gap: 20px 18px;
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .elements {
     grid-template-columns: repeat(2, 1fr);
-    max-width: calc(100% - 38px);
   }
 }
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .elements {
     grid-template-columns: repeat(1, 1fr);
-    padding-bottom: 48px;
+    padding: 0 19px 48px;
   }
 }
