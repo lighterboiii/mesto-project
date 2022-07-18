@@ -42,61 +42,108 @@ profileButton.addEventListener('click', popupOpen);
 closeButton.addEventListener('click', popupClose);
 submitButton.addEventListener('click', formSubmitHandler);
 addPhotoButton.addEventListener('click', addPhoto);
-closePopUpButton.addEventListener('click', closePopUp); // обработчики событий на кнопки
+closePopUpButton.addEventListener('click', closePopUp);
 
 
-// собираем добавление карточки на страницу
-// находим кнопку "Создать"
+// собираем добавление карточки на страницу через попап
 const createButton = document.querySelector('.form__submit-button');
-// пишем функцию, которая будет считывать значения полей ввода и на основе этой информации создавать элемент и добавлять его в ДОМ
 function createElement(evt) {
   evt.preventDefault();
-  // записываем в переменные поля ввода модального окна
   let photoLink = document.querySelector('.form__item_type_link');
   let photoName = document.querySelector('.form__item_type_photo');
-  // находим template элемент в разметке
   const elementsTemplate = document.querySelector('#elements__template').content;
-  // находим в документе список элементов, куда будем добавлять карточку
   const elementsList = document.querySelector('.elements');
-  // клонируем содержимое template
   const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
-  // наполняем скопированный элемент содержимым
+
   element.querySelector('.elements__caption').textContent = photoName.value;
   element.querySelector('.elements__img').src = photoLink.value;
-  // добавляем на страницу
+
   elementsList.prepend(element);
-  const deleteButton = document.querySelector('.delete-button'); // удаление псозданной карточки
+
+  const deleteButton = document.querySelector('.delete-button'); // удаление созданной карточки
   deleteButton.addEventListener('click', function () {
     const elementItem = deleteButton.closest('.elements__item');
     elementItem.remove();
   });
+
   const likeButton = document.querySelector('.like-button');
   likeButton.addEventListener('click', function () {
     likeButton.classList.toggle('like-button_active'); // функция лайка созданной карточки
-  })
+  });
 
   closePopUp();
 
   photoLink.value = '';
   photoName.value = '';
 }
-// пишем обработчик событий на кнопку createButton
 createButton.addEventListener('click', createElement);
+// загружаем карточки на страницу
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+  ];
 
-// находим кнопки удаления
-const deleteButtons = document.querySelectorAll('.delete-button');
-// задаем обработчик событий для каждой кнопки из коллекции
-for (let deleteButton of deleteButtons) {
+initialCards.forEach(function(item) { // для каждого элемента заданного массива по очереди задаем функцию добавления элемента на страницу
+  let name = item.name;
+  let link = item.link;
+  const elementsTemplate = document.querySelector('#elements__template').content;
+  const elementsList = document.querySelector('.elements');
+  const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
+
+  element.querySelector('.elements__caption').textContent = name;
+  element.querySelector('.elements__img').src = link;
+
+  elementsList.prepend(element);
+
+  const deleteButton = document.querySelector('.delete-button'); // удаление созданной карточки
   deleteButton.addEventListener('click', function () {
-    const elementItem = deleteButton.closest('.elements__item'); // удаление уже существующей карточки
+    const elementItem = deleteButton.closest('.elements__item');
     elementItem.remove();
   });
-}
-// находим кнопки лайков
-const likeButtons = document.querySelectorAll('.like-button');
-// задаем обработчик событий для каждой кнопки из коллекции
-for (let likeButton of likeButtons) {
+
+  const likeButton = document.querySelector('.like-button');
   likeButton.addEventListener('click', function () {
-    likeButton.classList.toggle('like-button_active'); // функция лайка уже существующей карточки
-  });
-}
+    likeButton.classList.toggle('like-button_active'); // функция лайка созданной карточки
+  })
+});
+
+
+// // находим кнопки удаления
+// const deleteButtons = document.querySelectorAll('.delete-button');
+// // задаем обработчик событий для каждой кнопки из коллекции
+// for (let deleteButton of deleteButtons) {
+//   deleteButton.addEventListener('click', function () {
+//     const elementItem = deleteButton.closest('.elements__item'); // удаление уже существующей карточки
+//     elementItem.remove();
+//   });
+// }
+// // находим кнопки лайков
+// const likeButtons = document.querySelectorAll('.like-button');
+// // задаем обработчик событий для каждой кнопки из коллекции
+// for (let likeButton of likeButtons) {
+//   likeButton.addEventListener('click', function () {
+//     likeButton.classList.toggle('like-button_active'); // функция лайка уже существующей карточки
+//   });
+// }
