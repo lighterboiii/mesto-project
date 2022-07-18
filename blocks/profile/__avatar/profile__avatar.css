@@ -2,9 +2,10 @@
   margin: 0;
   width: 120px;
   height: 120px;
-  background-image: url(../../../images/kusteau.jpg);
-  background-size: contain;
+  background-image: url(../../../images/-lSY83Oifbc.jpeg);
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: 40%;  /* убрать потом свойство, это я выровнял свою фотку на аватарке */
   border-radius: 50%;
   align-self: flex-start;
 }

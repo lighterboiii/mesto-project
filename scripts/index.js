@@ -2,7 +2,6 @@ const profileButton = document.querySelector('.profile__button'); // кнопк�
 const popup = document.querySelector('.popup'); // нашел в разметке модальное окно редактирования профиля
 const closeButton = document.querySelector('.form__close-button'); // кнопка закрытия окна редактирования профила
 const submitButton = document.querySelector('.form__button'); // кнопка "Сохранить" редактирование профиля
-// const profileContainer = document.querySelector('.profile__container'); //
 let profileName = document.querySelector('.profile__name'); // записал имя профиля в переменную
 let profileCaption = document.querySelector('.profile__caption'); // записал описание профиля в переменную
 const addPhotoButton = document.querySelector('.add-button')  // нашел кнопку открытия окна добавления карточки
@@ -80,28 +79,28 @@ createButton.addEventListener('click', createElement);
 // загружаем карточки на страницу
 const initialCards = [
   {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    name: 'Фаселис',
+    link: 'https://images.unsplash.com/photo-1658170213363-f31e6d2ef108?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
   },
   {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    name: 'Красная Поляна',
+    link: 'https://images.unsplash.com/photo-1658170213328-c9d745df2041?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
   },
   {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    name: 'Белгород',
+    link: 'https://images.unsplash.com/photo-1658170213798-080be7293ffd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2950&q=80'
   },
   {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    name: 'Санкт-Петербург',
+    link: 'https://images.unsplash.com/photo-1555460285-763ba96917d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
   },
   {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    name: 'Саль-Хашиш',
+    link: 'https://images.unsplash.com/photo-1658170213248-7463f6d2ee39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
   },
   {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    name: 'Мценск',
+    link: 'https://images.unsplash.com/photo-1658170213269-dc3aa8f27d0e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
   }
   ];
 
