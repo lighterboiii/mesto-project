@@ -1,6 +1,6 @@
 const profileButton = document.querySelector('.profile__button'); // кнопка открытия модального окна редактирования профиля
-const popup = document.querySelector('.popup'); // нашел в разметке модальное окно редактирования профиля
-const closeButton = document.querySelector('.form__close-button'); // кнопка закрытия окна редактирования профила
+const popup = document.querySelector('.popup'); // модальное окно редактирования профиля
+const closeButton = document.querySelector('.form__close-button'); // кнопка закрытия окна редактирования профиля
 const submitButton = document.querySelector('.form__button'); // кнопка "Сохранить" редактирование профиля
 let profileName = document.querySelector('.profile__name'); // записал имя профиля в переменную
 let profileCaption = document.querySelector('.profile__caption'); // записал описание профиля в переменную
@@ -79,8 +79,8 @@ createButton.addEventListener('click', createElement);
 // загружаем карточки на страницу
 const initialCards = [
   {
-    name: 'Фаселис',
-    link: 'https://images.unsplash.com/photo-1658170213363-f31e6d2ef108?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
+    name: 'Байкал',
+    link: 'https://images.unsplash.com/photo-1552588353-2f2cc7d429e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=778&q=80'
   },
   {
     name: 'Красная Поляна',
@@ -92,11 +92,11 @@ const initialCards = [
   },
   {
     name: 'Санкт-Петербург',
-    link: 'https://images.unsplash.com/photo-1555460285-763ba96917d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
+    link: 'https://images.unsplash.com/photo-1658208004995-e75ea6e37654?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
   },
   {
-    name: 'Саль-Хашиш',
-    link: 'https://images.unsplash.com/photo-1658170213248-7463f6d2ee39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
+    name: 'Рязань',
+    link: 'https://images.unsplash.com/photo-1613411278232-e29e3506f4fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1611&q=80'
   },
   {
     name: 'Мценск',
