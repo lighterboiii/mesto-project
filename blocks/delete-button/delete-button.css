@@ -7,7 +7,6 @@
     box-sizing: border-box;
     border: none;
     cursor: pointer;
-    padding: 0;
     background-image: url(../../images/Trash.svg);
     background-position: center;
     background-repeat: no-repeat;
@@ -15,10 +14,10 @@
     transition: opacity .3s ease;
   }
 
-  .photos__delete-button:hover {
+  .delete-button:hover {
     opacity: 0.6;
   }
 
-  .photos__delete-button:focus {
+  .delete-button:focus {
     opacity: 0.6;
   }

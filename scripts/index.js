@@ -102,9 +102,9 @@ const initialCards = [
     name: 'Мценск',
     link: 'https://images.unsplash.com/photo-1658170213269-dc3aa8f27d0e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
   }
-  ];
+];
 
-initialCards.forEach(function(item) { // для каждого элемента заданного массива по очереди задаем функцию добавления элемента на страницу
+initialCards.forEach(function (item) { // для каждого элемента заданного массива по очереди задаем функцию добавления элемента на страницу
   let name = item.name;
   let link = item.link;
   const elementsTemplate = document.querySelector('#elements__template').content;
@@ -128,21 +128,33 @@ initialCards.forEach(function(item) { // для каждого элемента 
   })
 });
 
+// При вызове функции обратного вызова слушателя, который сработает при нажатии на картинку, передайте в нее(в функцию)
+// данные самой карточки.Внутри этой функции вам надо данные этой карточки положить в нужные места в разметке вашего попапа.
+// После этого открыть попап.
+const imagePopup = document.querySelector('.photo-card');
 
-// // находим кнопки удаления
-// const deleteButtons = document.querySelectorAll('.delete-button');
-// // задаем обработчик событий для каждой кнопки из коллекции
-// for (let deleteButton of deleteButtons) {
-//   deleteButton.addEventListener('click', function () {
-//     const elementItem = deleteButton.closest('.elements__item'); // удаление уже существующей карточки
-//     elementItem.remove();
-//   });
-// }
-// // находим кнопки лайков
-// const likeButtons = document.querySelectorAll('.like-button');
-// // задаем обработчик событий для каждой кнопки из коллекции
-// for (let likeButton of likeButtons) {
-//   likeButton.addEventListener('click', function () {
-//     likeButton.classList.toggle('like-button_active'); // функция лайка уже существующей карточки
-//   });
-// }
+
+const images = document.querySelectorAll('.elements__img');
+for (let image of images) {
+  image.addEventListener('click', function (evt) {
+    link = evt.target.getAttribute('src');
+
+    const imgName = document.querySelector('.elements__caption');
+    const photoName = document.querySelector('.photo-card__caption');
+    const photoLink = document.querySelector('.photo-card__image');
+    caption = imgName.textContent;
+
+    photoLink.src = link;
+    photoName.textContent = caption;
+
+    imagePopup.classList.add('photo-card_opened');
+
+    const closeButton = document.querySelector('.photo__close-button');
+    closeButton.addEventListener('click', function() {
+      imagePopup.classList.remove('photo-card_opened');
+    });
+  });
+};
+
+
+

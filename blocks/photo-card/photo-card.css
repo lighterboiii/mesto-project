@@ -1,8 +1,10 @@
-.popup {
+.photo-card {
   visibility: hidden;
   opacity: 0;
+  max-width: 75vw;
+  max-height: 75vh;
 }
-.popup::before {
+.photo-card::after {
   content: '';
   position: absolute;
   top: 0;
