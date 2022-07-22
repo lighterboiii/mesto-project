@@ -7,7 +7,7 @@ let profileCaption = document.querySelector('.profile__caption'); // запис�
 const addPhotoButton = document.querySelector('.add-button')  // нашел кнопку открытия окна добавления карточки
 const photoPopUp = document.querySelector('.popup__photo-container') // нашел модальное окно добавления карточки
 const closePopUpButton = document.querySelector('.close-popup'); // нашел кнопку закрытия окна добавления карточки
-
+const imagePopup = document.querySelector('.photo-card');
 
 function popupOpen() {
   popup.classList.add('popup_opened');
@@ -58,6 +58,16 @@ function createElement(evt) {
   element.querySelector('.elements__img').src = photoLink.value;
 
   elementsList.prepend(element);
+
+  function openImage() {
+    const popupImage = document.querySelector('.photo-card__image');
+    const popupCaption = document.querySelector('.photo-card__caption');
+    popupImage.src = element.querySelector('.elements__img').src;
+    popupCaption.textContent = element.querySelector('.elements__caption').textContent; // открытие созданной карточки
+    imagePopup.classList.add('photo-card_opened');
+  };
+  const image = document.querySelector('.elements__img');
+  image.addEventListener('click', openImage);
 
   const deleteButton = document.querySelector('.delete-button'); // удаление созданной карточки
   deleteButton.addEventListener('click', function () {
@@ -111,12 +121,13 @@ initialCards.forEach(function (item) { // для каждого элемента
   const elementsList = document.querySelector('.elements');
   const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
 
+
   element.querySelector('.elements__caption').textContent = name;
   element.querySelector('.elements__img').src = link;
 
   elementsList.prepend(element);
 
-  const deleteButton = document.querySelector('.delete-button'); // удаление созданной карточки
+  const deleteButton = document.querySelector('.delete-button'); // добавляем кнопку удаления карточки
   deleteButton.addEventListener('click', function () {
     const elementItem = deleteButton.closest('.elements__item');
     elementItem.remove();
@@ -124,37 +135,24 @@ initialCards.forEach(function (item) { // для каждого элемента
 
   const likeButton = document.querySelector('.like-button');
   likeButton.addEventListener('click', function () {
-    likeButton.classList.toggle('like-button_active'); // функция лайка созданной карточки
-  })
-});
-
-// При вызове функции обратного вызова слушателя, который сработает при нажатии на картинку, передайте в нее(в функцию)
-// данные самой карточки.Внутри этой функции вам надо данные этой карточки положить в нужные места в разметке вашего попапа.
-// После этого открыть попап.
-const imagePopup = document.querySelector('.photo-card');
-
-
-const images = document.querySelectorAll('.elements__img');
-for (let image of images) {
-  image.addEventListener('click', function (evt) {
-    link = evt.target.getAttribute('src');
-
-    const imgName = document.querySelector('.elements__caption');
-    const photoName = document.querySelector('.photo-card__caption');
-    const photoLink = document.querySelector('.photo-card__image');
-    caption = imgName.textContent;
-
-    photoLink.src = link;
-    photoName.textContent = caption;
-
-    imagePopup.classList.add('photo-card_opened');
-
-    const closeButton = document.querySelector('.photo__close-button');
-    closeButton.addEventListener('click', function() {
-      imagePopup.classList.remove('photo-card_opened');
-    });
+    likeButton.classList.toggle('like-button_active'); // добавляем функцию лайка карточки
   });
-};
 
+
+  function openImage() {
+    const popupImage = document.querySelector('.photo-card__image');
+    const popupCaption = document.querySelector('.photo-card__caption');
+    popupImage.src = link;
+    popupCaption.textContent = name;
+    imagePopup.classList.add('photo-card_opened');
+  };
+  const image = document.querySelector('.elements__img');
+  image.addEventListener('click', openImage); // открытие карточки
+
+  const closeButton = document.querySelector('.photo__close-button');
+  closeButton.addEventListener('click', function() {
+        imagePopup.classList.remove('photo-card_opened');
+      });
+});
 
 
