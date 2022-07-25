@@ -51,15 +51,15 @@
   <div class="popup popup__add-photo">
     <div class="popup__container">
       <h2 class="popup__heading">Новое место</h2>
-      <form class="form" name="edit-form">
+      <form class="form card-form" name="card-form" id="card-form">
         <fieldset class="form__fieldset">
-          <input class="form__item form__item_type_photo" type="text" id="name" name="caption" placeholder="Название" required>
+          <input class="form__item form__item_type_photo" type="text" id="name" name="photo-name" placeholder="Название" required>
           <input class="form__item form__item_type_link" type="link" id="place" name="link"
             placeholder="Ссылка на картинку" required>
         </fieldset>
         <button class="form__button create-card-button" type="submit">Создать</button>
       </form>
-      <button class="form__close-button add-photo-close-button" type="reset"></button>
+      <button class="form__close-button popup__photo-close-button" type="reset"></button>
     </div>
   </div>
   <template id="elements__template">
