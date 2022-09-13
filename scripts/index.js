@@ -124,3 +124,27 @@ addCardForm.addEventListener('submit', submitCardForm);
 closePhotoButton.addEventListener('click', function () {
   imagePopup.classList.remove('photo-card_opened');
 });
+
+// пробуем закрывать на Esc
+closeByEsc(profilePopup);
+closeByEsc(addPhotoPopup);
+
+function closeByEsc (popup) {
+  addEventListener('keydown', function(evt) {
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    }
+  })
+}
+addEventListener('keydown', function(evt) {
+  if (evt.key === 'Escape') {
+    imagePopup.classList.remove('photo-card_opened');
+  }
+})
+// пробуем закрывать на оверлей
+const page = document.querySelector('.page');
+
+page.addEventListener('click', function (evt) {
+  closePopup(evt.target);
+  evt.target.classList.remove('photo-card_opened');
+})
