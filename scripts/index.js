@@ -77,7 +77,7 @@ function createCard(data) {
     elementItem.remove();
   });
   const likeButton = element.querySelector('.like-button');
-  likeButton.addEventListener('click', function () {
+  likeButton.addEventListener('mousedown', function () {
     likeButton.classList.toggle('like-button_active'); // функция лайка созданной карточки
   });
   function openImage(evt) {
@@ -163,7 +163,7 @@ page.addEventListener('mousedown', function (evt) {
 })
 
 
-// validation
+validation
 
 // функция для показа сообщения об ошибке
 const showInputError = (form, input, message) => {
@@ -228,7 +228,7 @@ const enableValidation = () => {
   });
 };
 
-enableValidation();
+enableValidation(); // собсна вызов
 
 // остаётся проблемой, что форма редактирования профиля при открытии не считает записанные в неё значения как заполненное поле ввода,
 // по той же причине остаётся ошибка при закрытии формы. При открытии заново поля заполнены, а ошибка есть
