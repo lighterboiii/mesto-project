@@ -47,22 +47,26 @@ const formItemLink = document.querySelector('.form__item_type_link'); // инп�
 const formItemName = document.querySelector('.form__item_type_photo'); // инпут с подписью к фото
 const addCardForm = document.querySelector('.card-form'); // форма создания карточки
 const closePhotoButton = document.querySelector('.photo__close-button'); // кнопка закрытия полноразмерного изображения
-
-
+const page = document.querySelector('.page'); // Вся страница. Для закрытия на оверлей
 // функции
-function openPopup(popup) { //  открыть модальное окно
+
+//  открыть модальное окно
+function openPopup(popup) {
   popup.classList.add('popup_opened');
 };
-function closePopup(popup) { // закрыть модальное окно
+// закрыть модальное окно
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
-function submitProfileForm(event) { // отправить данные в профайл
+// отправить данные в профайл
+function submitProfileForm(event) {
   event.preventDefault();
   profileName.textContent = formName.value;
   profileCaption.textContent = formJob.value;
   closePopup(profilePopup);
 };
-function createCard(data) { // функция создания карточки
+// функция создания карточки c изображением
+function createCard(data) {
   const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
   element.querySelector('.elements__caption').textContent = data.name;
   element.querySelector('.elements__img').src = data.link;
@@ -85,13 +89,15 @@ function createCard(data) { // функция создания карточки
   image.addEventListener('click', openImage);
   return element;
 };
+// отрисовка карточки в контейнере
 function renderCard(card, container) {
-  container.prepend(card); // отрисовка карточки в контейнере
+  container.prepend(card);
 };
+// сабмит формы добавления карточки
 function submitCardForm(evt) {
   evt.preventDefault();
   data = {
-    name: document.querySelector('.form__item_type_photo').value, // сабмит формы добавления карточки
+    name: document.querySelector('.form__item_type_photo').value,
     link: document.querySelector('.form__item_type_link').value
   };
   const card = createCard(data);
@@ -100,32 +106,12 @@ function submitCardForm(evt) {
   formItemLink.value = '';
   formItemName.value = '';
 };
+ // отрисовка карточек из массива
 initialCards.forEach(function (item) {
   const card = createCard(item);
-  renderCard(card, elementsList);  // отрисовка карточек из массива
+  renderCard(card, elementsList);
 });
-
-
-// слушатели событий
-profileButton.addEventListener('click', (function() {
-  formName.value = profileName.textContent;
-  formJob.value = profileCaption.textContent;
-  openPopup(profilePopup);
-}));
-profileCloseButton.addEventListener('click', () => closePopup(profilePopup));
-profileSubmitButton.addEventListener('click', submitProfileForm);
-addPhotoButton.addEventListener('click', () => openPopup(addPhotoPopup));
-closePopupButton.addEventListener('click', () => {
-  formItemLink.value = '';
-  formItemName.value = '';
-  closePopup(addPhotoPopup)
-});
-addCardForm.addEventListener('submit', submitCardForm);
-closePhotoButton.addEventListener('click', function () {
-  imagePopup.classList.remove('photo-card_opened');
-});
-
-// пробуем закрывать на Esc
+// Закрытие модального окна на Esc
 closeByEsc(profilePopup);
 closeByEsc(addPhotoPopup);
 
@@ -138,13 +124,42 @@ function closeByEsc (popup) {
 }
 addEventListener('keydown', function(evt) {
   if (evt.key === 'Escape') {
+    formItemLink.value = '';
+    formItemName.value = '';
     imagePopup.classList.remove('photo-card_opened');
   }
 })
-// пробуем закрывать на оверлей
-const page = document.querySelector('.page');
 
+// слушатели событий
+
+// открыть форму редактирования профиля
+profileButton.addEventListener('click', (function() {
+  formName.value = profileName.textContent;
+  formJob.value = profileCaption.textContent;
+  openPopup(profilePopup);
+}));
+// закрытие окна редактирования профиля
+profileCloseButton.addEventListener('click', () => closePopup(profilePopup));
+// сабмит окна редактирования профиля
+profileSubmitButton.addEventListener('click', submitProfileForm);
+// открытие формы добавления карточки на страницу
+addPhotoButton.addEventListener('click', () => openPopup(addPhotoPopup));
+// закрытие формы добавления карточки
+closePopupButton.addEventListener('click', () => {
+  formItemLink.value = '';
+  formItemName.value = '';
+  closePopup(addPhotoPopup)
+});
+// отправка формы добавления карточки на страницу
+addCardForm.addEventListener('submit', submitCardForm);
+// закрытие окна с развернутой картинкой
+closePhotoButton.addEventListener('click', function () {
+  imagePopup.classList.remove('photo-card_opened');
+});
+// слушатель событий для закрытия окна по клику на оверлей
 page.addEventListener('click', function (evt) {
   closePopup(evt.target);
   evt.target.classList.remove('photo-card_opened');
 })
+
+
