@@ -40,8 +40,16 @@
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form class="form" name="edit-form">
         <fieldset class="form__fieldset">
-          <input class="form__item form__item_type_name" type="text" id="name" name="name" placeholder="Ваше имя">
-          <input class="form__item form__item_type_job" type="text" id="activity" name="activity" placeholder="О себе">
+          <label for="name" class="form__field">
+            <input class="form__item form__item_type_name" type="text" id="name" name="name" placeholder="Ваше имя"
+              required minlength="2" maxlength="40">
+            <span class="form__item-error name-error"></span>
+          </label>
+          <label for="activity" class="form__field">
+            <input class="form__item form__item_type_job" type="text" id="activity" name="activity" placeholder="О себе"
+              required minlength="2" maxlength="200">
+            <span class="form__item-error activity-error"></span>
+          </label>
         </fieldset>
         <button class="form__button profile-submit-button" type="submit">Сохранить</button>
       </form>
@@ -53,9 +61,16 @@
       <h2 class="popup__heading">Новое место</h2>
       <form class="form card-form" name="card-form" id="card-form">
         <fieldset class="form__fieldset">
-          <input class="form__item form__item_type_photo" type="text" id="name" name="photo-name" placeholder="Название" required>
-          <input class="form__item form__item_type_link" type="link" id="place" name="link"
-            placeholder="Ссылка на картинку" required>
+          <label for="name" class="form__field">
+            <input class="form__item form__item_type_photo" type="text" id="name" name="photo-name"
+              placeholder="Название" required minlength="2" maxlength="30">
+            <span class="form__item-error name-error"></span>
+          </label>
+          <label for="place" class="form__field">
+            <input class="form__item form__item_type_link" type="link" id="place" name="link"
+              placeholder="Ссылка на картинку" required>
+            <span class="form__item-error place-error"></span>
+          </label>
         </fieldset>
         <button class="form__button create-card-button" type="submit">Создать</button>
       </form>
@@ -72,17 +87,16 @@
       <button class="delete-button" type="button"></button>
     </div>
   </template>
-    <div class="photo-card">
-      <div class="photo-card__item">
-        <figure class="photo-card__row">
-          <img src="" alt="" class="photo-card__image">
-          <figcaption class="photo-card__caption"></figcaption>
-        </figure>
-        <button class="form__close-button photo__close-button" type="reset"></button>
-      </div>
+  <div class="photo-card">
+    <div class="photo-card__item">
+      <figure class="photo-card__row">
+        <img src="" alt="" class="photo-card__image">
+        <figcaption class="photo-card__caption"></figcaption>
+      </figure>
+      <button class="form__close-button photo__close-button" type="reset"></button>
     </div>
+  </div>
   <script src="scripts/index.js"></script>
-  <script src="scripts/initialCards.js"></script>
 </body>
 
 </html>

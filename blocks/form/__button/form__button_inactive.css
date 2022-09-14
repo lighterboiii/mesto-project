@@ -1,0 +1,10 @@
+.form__button_inactive {
+  border: 1px solid #C4C4C4;
+  background-color: white;
+  color: #C4C4C4;
+}
+
+.form__button_inactive:hover {
+  opacity: 1;
+  cursor: auto;
+}

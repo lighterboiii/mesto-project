@@ -38,3 +38,8 @@
 @import url(../blocks/photo-card/__image/photo-card__image.css);
 @import url(../blocks/photo-card/__caption/photo-card__caption.css);
 @import url(../blocks/photo-card/_opened/photo-card_opened.css);
+@import url(../blocks/form/__button/form__button_inactive.css);
+@import url(../blocks/form/item-error/form__item-error.css);
+@import url(../blocks/form/item-error/form__item-error_active.css);
+@import url(../blocks/form/__field/form__field.css);
+@import url(../blocks/form/__item/_type/form__item_type_error.css);
