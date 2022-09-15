@@ -1,4 +1,5 @@
-import './styles/index.css';
+import './index.css';
+
 const initialCards = [
   {
     name: 'Байкал',
