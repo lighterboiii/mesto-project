@@ -1,3 +1,4 @@
+import './styles/index.css';
 const initialCards = [
   {
     name: 'Байкал',
@@ -162,8 +163,7 @@ page.addEventListener('mousedown', function (evt) {
   evt.target.classList.remove('photo-card_opened');
 })
 
-
-validation
+// validation
 
 // функция для показа сообщения об ошибке
 const showInputError = (form, input, message) => {
