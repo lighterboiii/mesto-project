@@ -1,3 +1,4 @@
+import './styles/index.css';
 const initialCards = [
   {
     name: 'Байкал',
@@ -77,7 +78,7 @@ function createCard(data) {
     elementItem.remove();
   });
   const likeButton = element.querySelector('.like-button');
-  likeButton.addEventListener('click', function () {
+  likeButton.addEventListener('mousedown', function () {
     likeButton.classList.toggle('like-button_active'); // функция лайка созданной карточки
   });
   function openImage(evt) {
@@ -106,7 +107,7 @@ function submitCardForm(evt) {
   formItemLink.value = '';
   formItemName.value = '';
 };
- // отрисовка карточек из массива
+// отрисовка карточек из массива
 initialCards.forEach(function (item) {
   const card = createCard(item);
   renderCard(card, elementsList);
@@ -115,14 +116,14 @@ initialCards.forEach(function (item) {
 closeByEsc(profilePopup);
 closeByEsc(addPhotoPopup);
 
-function closeByEsc (popup) {
-  addEventListener('keydown', function(evt) {
+function closeByEsc(popup) {
+  addEventListener('keydown', function (evt) {
     if (evt.key === 'Escape') {
       closePopup(popup);
     }
   })
 }
-addEventListener('keydown', function(evt) {
+addEventListener('keydown', function (evt) {
   if (evt.key === 'Escape') {
     formItemLink.value = '';
     formItemName.value = '';
@@ -133,7 +134,7 @@ addEventListener('keydown', function(evt) {
 // слушатели событий
 
 // открыть форму редактирования профиля
-profileButton.addEventListener('click', (function() {
+profileButton.addEventListener('click', (function () {
   formName.value = profileName.textContent;
   formJob.value = profileCaption.textContent;
   openPopup(profilePopup);
@@ -148,7 +149,7 @@ addPhotoButton.addEventListener('click', () => openPopup(addPhotoPopup));
 closePopupButton.addEventListener('click', () => {
   formItemLink.value = '';
   formItemName.value = '';
-  closePopup(addPhotoPopup)
+  closePopup(addPhotoPopup);
 });
 // отправка формы добавления карточки на страницу
 addCardForm.addEventListener('submit', submitCardForm);
@@ -157,9 +158,77 @@ closePhotoButton.addEventListener('click', function () {
   imagePopup.classList.remove('photo-card_opened');
 });
 // слушатель событий для закрытия окна по клику на оверлей
-page.addEventListener('click', function (evt) {
+page.addEventListener('mousedown', function (evt) {
   closePopup(evt.target);
   evt.target.classList.remove('photo-card_opened');
 })
 
+// validation
 
+// функция для показа сообщения об ошибке
+const showInputError = (form, input, message) => {
+  const errorElement = form.querySelector(`.${input.id}-error`);
+  input.classList.add('form__item_type_error');
+  errorElement.textContent = message;
+  errorElement.classList.add('form__item-error_active');
+};
+// функция скрытия сообщения об ошибке
+const hideInputError = (form, input) => {
+  const errorElement = form.querySelector(`.${input.id}-error`);
+  errorElement.classList.remove('form__item-error_active');
+  input.classList.remove('form__item_type_error');
+  errorElement.textContent = '';
+};
+// функция для проверки валидности инпута и показе стандартного сообщения об ошибке для невалидного поля ввода
+const checkInputValidity = (form, input) => {
+  if (!input.validity.valid) {
+    showInputError(form, input, input.validationMessage);
+  } else {
+    hideInputError(form, input);
+  }
+};
+// если хотя бы один инпут в проверяемом аргументе(в данный момент массив инпутов) невалиден,
+// функция возвращает значение false для проверки на валидность, если все валидны, validity - true
+const hasInvalidInput = (inputList) => {
+  return inputList.some((input) => {
+    return !input.validity.valid;
+  });
+};
+// переключение состояния кнопки сабмита при проверке на невалидность поля ввода
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('form__button_inactive');
+    buttonElement.setAttribute('disabled', true);
+  } else {
+    buttonElement.classList.remove('form__button_inactive');
+    buttonElement.removeAttribute('disabled', true);
+  };
+};
+// функция добавления слушателя событий на ВСЕ инпуты в форме
+const addEventListeners = (form) => {
+  const inputList = Array.from(form.querySelectorAll('.form__item'));
+  const buttonElement = form.querySelector('.form__button');
+  toggleButtonState(inputList, buttonElement);
+
+  inputList.forEach((input) => {
+    input.addEventListener('input', function () {
+      toggleButtonState(inputList, buttonElement);
+      checkInputValidity(form, input);
+    });
+  });
+};
+// поиск всех форм в документе, отмена для каждой стандартного поведения и добавление слушателей событий на все формы
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.form'));
+  formList.forEach((form) => {
+    form.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+    });
+    addEventListeners(form);
+  });
+};
+
+enableValidation(); // собсна вызов
+
+// остаётся проблемой, что форма редактирования профиля при открытии не считает записанные в неё значения как заполненное поле ввода,
+// по той же причине остаётся ошибка при закрытии формы. При открытии заново поля заполнены, а ошибка есть
