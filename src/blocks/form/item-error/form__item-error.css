@@ -1,13 +1,12 @@
 .form__item-error {
   position: absolute;
-  top: 25px;
+  top: 32px;
   visibility: hidden;
   opacity: 0;
   overflow: hidden;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  margin-top: 5px;
+  font-size: 12px;
+  line-height: 15px;
   color: #FF0000;
 }
