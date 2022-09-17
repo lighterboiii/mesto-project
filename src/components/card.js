@@ -1,4 +1,4 @@
-import { closePopup } from "./modal.js";
+import { closePopup } from "./utils";
 import { addPhotoPopup, formItemPhotoLink, formItemPhotoCaption } from "./utils.js";
 
 const initialCards = [
@@ -48,8 +48,12 @@ function createCard(data) {
     openedImageCaption.textContent = evt.target.getAttribute('alt');
     imagePopup.classList.add('photo-card_opened');
   };
+  function closeImage() {
+    imagePopup.classList.remove('photo-card_opened');
+  }
   const image = element.querySelector('.elements__img');
   image.addEventListener('click', openImage);
+  closePhotoButton.addEventListener('click', closeImage);
   return element;
 };
 // отрисовка карточки в контейнере
@@ -80,5 +84,6 @@ const openedImage = document.querySelector('.photo-card__image'); // фото п
 const openedImageCaption = document.querySelector('.photo-card__caption'); // описание полноращмерного фото
 const elementsList = document.querySelector('.elements');
 const imagePopup = document.querySelector('.photo-card'); // открытое фото
+const closePhotoButton = document.querySelector('.photo__close-button'); // кнопка закрытия биг имейджа
 
 export {createCard, renderCard, initialCards, submitCardForm, renderFromArray };

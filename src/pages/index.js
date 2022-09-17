@@ -2,11 +2,18 @@ import './index.css';
 
 import { enableValidation } from '../components/validate';
 import { initialCards, submitCardForm, renderFromArray } from '../components/card.js';
-import { closePopup, openPopup, closeByEsc, submitProfileForm, readProfileContent } from '../components/modal';
-import { profilePopup, imagePopup, formItemPhotoCaption, formItemPhotoLink, addPhotoPopup } from '../components/utils.js';
+import { closeByEsc, submitProfileForm, closeByOverlay, openProfile, closeCardPopup } from '../components/modal';
+import { profilePopup, imagePopup, addPhotoPopup, closePopup, openPopup } from '../components/utils.js';
 
 // функция валидации формы
-enableValidation();
+enableValidation({
+  // formSelector: '.popup',
+  // inputSelector: '.form__item',
+  // submitButtonSelector: '.form__button',
+  // inactiveButtonClass: 'form__button_inactive',
+  // inputErrorClass: 'form__item_type_error',
+  // errorClass: 'form__item-error_active'
+});
 renderFromArray(initialCards);
 // Закрытие модального окна на Esc
 closeByEsc(profilePopup);
@@ -19,55 +26,19 @@ const addPhotoButton = document.querySelector('.add-button')  // нашел кн
 const profileCloseButton = document.querySelector('.profile-close-button'); // кнопка закрытия окна редактирования профиля
 const closeAddPhotoPopup = document.querySelector('.popup__photo-close-button'); // нашел кнопку закрытия окна добавления карточки
 const addCardForm = document.querySelector('.card-form'); // форма создания карточки
-const closePhotoButton = document.querySelector('.photo__close-button'); // кнопка закрытия полноразмерного изображения
 const page = document.querySelector('.page'); // Вся страница. Для закрытия на оверлей
-// const elementsTemplate = document.querySelector('#elements__template').content; // получаем контент темплейт
-// const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
-// const profilePopup = document.querySelector('.popup__profile'); // модальное окно редактирования профиля
-// const profileName = document.querySelector('.profile__name'); // записал имя профиля в переменную
-// const profileCaption = document.querySelector('.profile__caption'); // записал описание профиля в переменную
-// const profileFormNameInput = document.querySelector('.form__item_type_name'); // инпут "имя" редактирования профиля
-// const profileFormCaptionInput = document.querySelector('.form__item_type_job'); // инпут "о себе" редактирования профеля
-// const addPhotoPopup = document.querySelector('.popup__add-photo') // нашел модальное окно добавления карточки
-// const imagePopup = document.querySelector('.photo-card'); // открытое фото
-// const openedImage = document.querySelector('.photo-card__image'); // фото полноразмерное
-// const openedImageCaption = document.querySelector('.photo-card__caption'); // описание полноращмерного фото
-// const elementsList = document.querySelector('.elements'); // контейнер для рендера карточек
-// const formItemPhotoLink = document.querySelector('.form__item_type_link');
-// const formItemPhotoCaption = document.querySelector('.form__item_type_photo'); // инпут с подписью к фото
 
 // слушатели событий
-// открыть форму редактирования профиля
-openProfilePopupButton.addEventListener('click', (function () {
-  readProfileContent();
-  openPopup(profilePopup);
-}));
-// закрытие окна редактирования профиля
-profileCloseButton.addEventListener('click', () => closePopup(profilePopup));
-// сабмит окна редактирования профиля
-profilePopup.addEventListener('submit', submitProfileForm);
-// открытие формы добавления карточки на страницу
-addPhotoButton.addEventListener('click', () => openPopup(addPhotoPopup));
-// закрытие формы добавления карточки
-closeAddPhotoPopup.addEventListener('click', () => {
-  formItemPhotoLink.value = '';
-  formItemPhotoCaption.value = '';
-  closePopup(addPhotoPopup);
-});
-// отправка формы добавления карточки на страницу
-addCardForm.addEventListener('submit', submitCardForm);
-// закрытие окна с развернутой картинкой
-closePhotoButton.addEventListener('click', function () {
-  imagePopup.classList.remove('photo-card_opened');
-});
-// слушатель событий для закрытия окна по клику на оверлей
-page.addEventListener('mousedown', function (evt) {
-  closePopup(evt.target);
-  evt.target.classList.remove('photo-card_opened');
-});
+openProfilePopupButton.addEventListener('click', openProfile); // открыть форму редактирования профиля
+profileCloseButton.addEventListener('click', () => closePopup(profilePopup)); // закрытие окна редактирования профиля
+profilePopup.addEventListener('submit', submitProfileForm); // сабмит окна редактирования профиля
+addPhotoButton.addEventListener('click', () => openPopup(addPhotoPopup)); // открытие формы добавления карточки на страницу
+closeAddPhotoPopup.addEventListener('click', () => closeCardPopup(addPhotoPopup)); // закрытие формы добавления карточки
+addCardForm.addEventListener('submit', submitCardForm); // отправка формы добавления карточки на страницу
+page.addEventListener('mousedown', closeByOverlay); // слушатель событий для закрытия окна по клику на оверлей
 
-
-
+// остаётся проблемой, что форма редактирования профиля при открытии не считает записанные в неё значения как заполненное поле ввода,
+// по той же причине остаётся ошибка при закрытии формы. При открытии заново поля заполнены, а ошибка есть
 
 
 
@@ -254,10 +225,6 @@ page.addEventListener('mousedown', function (evt) {
 
 // enableValidation(); // собсна вызов
 
-// остаётся проблемой, что форма редактирования профиля при открытии не считает записанные в неё значения как заполненное поле ввода,
-// по той же причине остаётся ошибка при закрытии формы. При открытии заново поля заполнены, а ошибка есть
-
-
 // const profileSubmitButton = document.querySelector('.profile-submit-button'); // кнопка "Сохранить" редактирование профиля
 // const createCardButton = document.querySelector('.create-card-button'); // кнопка "создать" карточку с фото
 
@@ -269,3 +236,18 @@ page.addEventListener('mousedown', function (evt) {
 //     imagePopup.classList.remove('photo-card_opened');
 //   }
 // })
+
+// const elementsTemplate = document.querySelector('#elements__template').content; // получаем контент темплейт
+// const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
+// const profilePopup = document.querySelector('.popup__profile'); // модальное окно редактирования профиля
+// const profileName = document.querySelector('.profile__name'); // записал имя профиля в переменную
+// const profileCaption = document.querySelector('.profile__caption'); // записал описание профиля в переменную
+// const profileFormNameInput = document.querySelector('.form__item_type_name'); // инпут "имя" редактирования профиля
+// const profileFormCaptionInput = document.querySelector('.form__item_type_job'); // инпут "о себе" редактирования профеля
+// const addPhotoPopup = document.querySelector('.popup__add-photo') // нашел модальное окно добавления карточки
+// const imagePopup = document.querySelector('.photo-card'); // открытое фото
+// const openedImage = document.querySelector('.photo-card__image'); // фото полноразмерное
+// const openedImageCaption = document.querySelector('.photo-card__caption'); // описание полноращмерного фото
+// const elementsList = document.querySelector('.elements'); // контейнер для рендера карточек
+// const formItemPhotoLink = document.querySelector('.form__item_type_link');
+// const formItemPhotoCaption = document.querySelector('.form__item_type_photo'); // инпут с подписью к фото

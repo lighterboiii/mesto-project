@@ -1,13 +1,4 @@
-import { profilePopup, formItemPhotoCaption, formItemPhotoLink, imagePopup } from '../components/utils.js';
-
-//  открыть модальное окно
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-};
-// закрыть модальное окно
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-};
+import { profilePopup, formItemPhotoCaption, formItemPhotoLink, imagePopup, closePopup, openPopup } from '../components/utils.js';
 
 function closeByEsc(popup) {
   addEventListener('keydown', function (evt) {
@@ -19,6 +10,10 @@ function closeByEsc(popup) {
     }
   })
 }
+function closeByOverlay (evt) {
+  closePopup(evt.target);
+  evt.target.classList.remove('photo-card_opened');
+}
 function readProfileContent () {
   profileFormNameInput.value = profileName.textContent;
   profileFormCaptionInput.value = profileCaption.textContent;
@@ -27,6 +22,18 @@ function fillInputContent () {
   profileName.textContent = profileFormNameInput.value;
   profileCaption.textContent = profileFormCaptionInput.value;
 };
+function clearInput () {
+  formItemPhotoLink.value = '';
+  formItemPhotoCaption.value = '';
+}
+function closeCardPopup (popup) {
+  clearInput();
+  closePopup(popup);
+}
+function openProfile () {
+  readProfileContent();
+  openPopup(profilePopup);
+};
 
 // отправить данные в профайл
 function submitProfileForm(event) {
@@ -34,9 +41,9 @@ function submitProfileForm(event) {
   fillInputContent();
   closePopup(profilePopup);
 };
-const profileFormNameInput = document.querySelector('.form__item_type_name'); // инпут "имя" редактирования профиля
+const profileFormNameInput = document.querySelector('.form__item_type_name');
 const profileFormCaptionInput = document.querySelector('.form__item_type_job');
-const profileName = document.querySelector('.profile__name'); // записал имя профиля в переменную
+const profileName = document.querySelector('.profile__name');
 const profileCaption = document.querySelector('.profile__caption');
 
-export { closePopup, openPopup, closeByEsc, submitProfileForm, readProfileContent }
+export { closeByEsc, submitProfileForm, readProfileContent, closeByOverlay, openProfile, closeCardPopup }
