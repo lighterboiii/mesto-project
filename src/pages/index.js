@@ -2,23 +2,19 @@ import './index.css';
 
 import { enableValidation } from '../components/validate';
 import { initialCards, submitCardForm, renderFromArray } from '../components/card.js';
-import { closeByEsc, submitProfileForm, closeByOverlay, openProfile, closeCardPopup } from '../components/modal';
-import { profilePopup, imagePopup, addPhotoPopup, closePopup, openPopup } from '../components/utils.js';
+import { submitProfileForm, closeByOverlay, openProfile, closeCardPopup,  closePopup, openPopup } from '../components/modal';
+import { profilePopup, imagePopup, addPhotoPopup } from '../components/utils.js';
 
-// функция валидации формы
 enableValidation({
-  // formSelector: '.popup',
-  // inputSelector: '.form__item',
-  // submitButtonSelector: '.form__button',
-  // inactiveButtonClass: 'form__button_inactive',
-  // inputErrorClass: 'form__item_type_error',
-  // errorClass: 'form__item-error_active'
+  formSelector: '.popup',
+  inputSelector: '.form__item',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button_inactive',
+  inputErrorClass: 'form__item_type_error',
+  errorClass: 'form__item-error_active'
 });
 renderFromArray(initialCards);
-// Закрытие модального окна на Esc
-closeByEsc(profilePopup);
-closeByEsc(addPhotoPopup);
-closeByEsc(imagePopup);
+
 
 // константы
 const openProfilePopupButton = document.querySelector('.profile__button'); // кнопка открытия модального окна редактирования профиля
@@ -38,7 +34,7 @@ addCardForm.addEventListener('submit', submitCardForm); // отправка фо
 page.addEventListener('mousedown', closeByOverlay); // слушатель событий для закрытия окна по клику на оверлей
 
 // остаётся проблемой, что форма редактирования профиля при открытии не считает записанные в неё значения как заполненное поле ввода,
-// по той же причине остаётся ошибка при закрытии формы. При открытии заново поля заполнены, а ошибка есть
+// по той же причине остаётся ошибка при закрытии формы. При открытии заново поля заполнены, а ошибка есть. Потом исправить 
 
 
 

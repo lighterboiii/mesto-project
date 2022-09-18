@@ -15,12 +15,8 @@ const hideInputError = (form, input) => {
 // функция для проверки валидности инпута и показе стандартного сообщения об ошибке для невалидного поля ввода
 const checkInputValidity = (form, input) => {
   if (input.validity.patternMismatch) {
-    // встроенный метод setCustomValidity принимает на вход строку
-    // и заменяет ею стандартное сообщение об ошибке
     input.setCustomValidity(input.dataset.errorMessage);
   } else {
-    // если передать пустую строку, то будут доступны
-    // стандартные браузерные сообщения
     input.setCustomValidity("");
   };
   if (!input.validity.valid) {
@@ -29,8 +25,6 @@ const checkInputValidity = (form, input) => {
     hideInputError(form, input);
   }
 };
-// если хотя бы один инпут в проверяемом аргументе(в данный момент массив инпутов) невалиден,
-// функция возвращает значение false для проверки на валидность, если все валидны, validity - true
 const hasInvalidInput = (inputList) => {
   return inputList.some((input) => {
     return !input.validity.valid;

@@ -1,4 +1,4 @@
-import { closePopup } from "./utils";
+import { closePopup } from "./modal.js";
 import { addPhotoPopup, formItemPhotoLink, formItemPhotoCaption } from "./utils.js";
 
 const initialCards = [
@@ -49,8 +49,13 @@ function createCard(data) {
     imagePopup.classList.add('photo-card_opened');
   };
   function closeImage() {
-    imagePopup.classList.remove('photo-card_opened');
+    imagePopup.classList.remove('photo-card_opened'); // закрытие развернутого изображения
   }
+  addEventListener('keydown', function (evt) { // закрытие развернутого изображения на Esc
+    if (evt.key === 'Escape') { 
+      closeImage();
+    }
+  })
   const image = element.querySelector('.elements__img');
   image.addEventListener('click', openImage);
   closePhotoButton.addEventListener('click', closeImage);
