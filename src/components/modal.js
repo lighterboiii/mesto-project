@@ -1,4 +1,4 @@
-import { profilePopup, formItemPhotoCaption, formItemPhotoLink, imagePopup, clearInput, fillInputContent, readProfileContent } from '../components/utils.js';
+import { profilePopup, clearInput, fillInputContent, readProfileContent } from '../components/utils.js';
 
 
 function openPopup(popup) {
