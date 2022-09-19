@@ -21,4 +21,4 @@ const profileFormCaptionInput = document.querySelector('.form__item_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileCaption = document.querySelector('.profile__caption');
 
-export { profilePopup, formItemPhotoCaption, formItemPhotoLink, imagePopup, addPhotoPopup, readProfileContent, clearInput, fillInputContent };
+export { profilePopup, formItemPhotoCaption, formItemPhotoLink, addPhotoPopup, readProfileContent, clearInput, fillInputContent };
