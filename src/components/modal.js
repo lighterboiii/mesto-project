@@ -41,5 +41,4 @@ const deleteErrorMessages = () => {
   })
 };
 
-
 export { closeByOverlay, openProfile, closeCardPopup,  closePopup, openPopup, closeByEsc  };

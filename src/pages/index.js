@@ -26,6 +26,8 @@ function submitCardForm(evt) {
   renderCard(card, elementsList);
   closePopup(addPhotoPopup);
   addCardForm.reset();
+  submitPhotoButton.setAttribute('disabled', true);
+  submitPhotoButton.classList.add('form__button_inactive');
 };
 
 function renderInitialCards(array) {  // отрисовка карточек из массива
