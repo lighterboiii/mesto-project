@@ -3,20 +3,13 @@ import '../pages/index.css';
 import { enableValidation } from '../components/validate.js';
 import { imagePopup, createCard, elementsList } from '../components/card.js';
 import { closeByOverlay, closeByEsc, openProfile, closeCardPopup, closePopup, openPopup } from '../components/modal.js';
-import { initialCards, profilePopup, addPhotoPopup, formItemPhotoCaption, formItemPhotoLink } from '../components/utils.js';
+import { initialCards, profilePopup, addPhotoPopup, formItemPhotoCaption, formItemPhotoLink, fillInputContent } from '../components/utils.js';
 
 // function calls
 closeByEsc(profilePopup);
 closeByEsc(imagePopup);
 closeByEsc(addPhotoPopup);
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  submitButtonSelector: '.form__button',
-  inactiveButtonClass: 'form__button_inactive',
-  inputErrorClass: 'form__item_type_error',
-  errorClass: 'form__item-error_active'
-});
+enableValidation();
 renderInitialCards(initialCards);
 // functions declaring
 function renderCard(card, container) {  // отрисовка карточки в контейнере
@@ -56,6 +49,8 @@ const profileCloseButton = document.querySelector('.profile-close-button'); // �
 const closeAddPhotoPopup = document.querySelector('.popup__photo-close-button'); // нашел кнопку закрытия окна добавления карточки
 const addCardForm = document.querySelector('.card-form'); // форма создания карточки
 const closePhotoButton = document.querySelector('.photo__close-button'); // кнопка закрытия биг имейджа
+const submitPhotoButton = document.querySelector('.create-card-button');
+
 
 // слушатели событий
 closePhotoButton.addEventListener('click', () => closePopup(imagePopup));
@@ -65,6 +60,6 @@ profilePopup.addEventListener('submit', submitProfileForm); // сабмит ок
 addPhotoButton.addEventListener('click', () => openPopup(addPhotoPopup)); // открытие формы добавления карточки на страницу
 closeAddPhotoPopup.addEventListener('click', () => closeCardPopup(addPhotoPopup)); // закрытие формы добавления карточки
 addCardForm.addEventListener('submit', submitCardForm); // отправка формы добавления карточки на страницу
-imagePopup.addEventListener('mousedown', closeByOverlay); // слушатель событий для закрытия развернутого изображения по клику на оверлей
 profilePopup.addEventListener('mousedown', closeByOverlay);
 addPhotoPopup.addEventListener('mousedown', closeByOverlay);
+imagePopup.addEventListener('mousedown', closeByOverlay);
