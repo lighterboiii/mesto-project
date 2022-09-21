@@ -1,17 +1,4 @@
 .photo-card {
-  visibility: hidden;
-  opacity: 0;
   max-width: 75vw;
   max-height: 75vh;
-}
-.photo-card::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding-bottom: 100%;
-  background-color: #000000;
-  opacity: .5;
 }

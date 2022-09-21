@@ -1,38 +1,31 @@
-import { profilePopup, clearInput, fillInputContent, readProfileContent } from '../components/utils.js';
+import { profilePopup, fillInputContent, readProfileContent, resetInput } from '../components/utils.js';
 
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-      clearInput();
-    }
-  })
+  popup.classList.add('popup_opened')
 };
-// закрыть модальное окно
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
 function closeByOverlay (evt) {
   closePopup(evt.target);
-  evt.target.classList.remove('photo-card_opened');
-}
+  resetInput();
+};
 function closeCardPopup (popup) {
-  clearInput();
   closePopup(popup);
-}
+  resetInput();
+};
 function openProfile () {
   readProfileContent(profilePopup);
   openPopup(profilePopup);
 };
-
-// отправить данные в профайл
-function submitProfileForm(event) {
-  event.preventDefault();
-  fillInputContent();
-  closePopup(profilePopup);
+function closeByEsc (popup) {
+  document.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+    resetInput();
+  }
+})
 };
 
-
-export { submitProfileForm, closeByOverlay, openProfile, closeCardPopup,  closePopup, openPopup  }
+export { closeByOverlay, openProfile, closeCardPopup,  closePopup, openPopup, closeByEsc  };
