@@ -4,7 +4,25 @@ const config = {
   submitButtonSelector: '.form__button',
   inactiveButtonClass: 'form__button_inactive',
   inputErrorClass: 'form__item_type_error',
-  errorClass: 'form__item-error_active'
+  errorClass: 'form__item-error_active',
+  submitPhotoSelector: 'create-card-button'
+};
+// функция для очистки ошибок валидации
+const deleteErrorMessages = () => {
+  const errorMessages = Array.from(document.querySelectorAll('.form__item-error'));
+  const errorBorders = Array.from(document.querySelectorAll(config.inputSelector));
+  errorMessages.forEach((message) => {
+    message.textContent = '';
+  })
+  errorBorders.forEach((input) => {
+    input.classList.remove(config.inputErrorClass);
+  })
+};
+// функция дизейблинга кнопки "Сохранить"
+const disableSubmitButton = () => {
+  const submitPhotoButton = document.querySelector(config.submitButtonSelector);
+  submitPhotoButton.setAttribute('disabled', true);
+  submitPhotoButton.classList.add(config.inactiveButtonClass);
 }
 // функция для показа сообщения об ошибке
 const showInputError = (form, input, message) => {
@@ -62,7 +80,15 @@ const addEventListeners = (form) => {
   });
 };
 // поиск всех форм в документе, отмена для каждой стандартного поведения и добавление слушателей событий на все формы
-const enableValidation = () => {
+const enableValidation = (config = {
+  formSelector: '.form',
+  inputSelector: '.form__item',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button_inactive',
+  inputErrorClass: 'form__item_type_error',
+  errorClass: 'form__item-error_active',
+  errorInput: 'form__item-error'
+}) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((form) => {
     form.addEventListener('submit', function (evt) {
@@ -72,4 +98,4 @@ const enableValidation = () => {
   });
 };
 
-export { enableValidation };
+export { enableValidation, deleteErrorMessages, disableSubmitButton };
