@@ -1,37 +1,38 @@
 import { profilePopup, readProfileContent, addPhotoPopup, resetAddCardForm } from '../components/utils.js';
 import { deleteErrorMessages } from '../components/validate.js';
 
+function escHandler() {
+  if (event.key === 'Escape') {
+   const opened = document.querySelector('.popup_opened');
+   closePopup(opened);
+  }
+};
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', () => closeByEsc(popup));
-};
-function closeByEsc (popup) {
-  if (event.key === 'Escape') {
-    closePopup(popup);
-  }
+  window.addEventListener('keydown', escHandler);
 };
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', () => closeByEsc(popup))
+  window.removeEventListener('keydown', escHandler);
 };
-function closeByOverlay (evt) {
+function closeByOverlay(evt) {
   if (evt.target.classList.contains('popup')) {
     closePopup(evt.target);
   }
 };
-function openProfile () {
+function openProfile() {
   readProfileContent(profilePopup);
   openPopup(profilePopup);
   deleteErrorMessages();
 };
-function openCardPopup () {
+function openCardPopup() {
   resetAddCardForm();
   openPopup(addPhotoPopup);
   deleteErrorMessages();
 };
-function closeCardPopup (popup) {
+function closeCardPopup(popup) {
   closePopup(popup);
 };
 
 
-export { closeByOverlay, openProfile, closeCardPopup,  closePopup, openPopup, openCardPopup };
+export { closeByOverlay, openProfile, closeCardPopup, closePopup, openPopup, openCardPopup };
