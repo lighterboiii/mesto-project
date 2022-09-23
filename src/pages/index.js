@@ -1,12 +1,12 @@
 import '../pages/index.css';
 
-import { disableSubmitButton, enableValidation } from '../components/validate.js';
+import { disableSubmitButton, enableValidation, config } from '../components/validate.js';
 import { imagePopup, createCard, elementsList } from '../components/card.js';
 import { closeByOverlay, openProfile, closeCardPopup, closePopup, openCardPopup } from '../components/modal.js';
-import { initialCards, profilePopup, addPhotoPopup, formItemPhotoCaption, formItemPhotoLink, fillInputContent } from '../components/utils.js';
+import { addCardForm, initialCards, profilePopup, addPhotoPopup, formItemPhotoCaption, formItemPhotoLink, fillInputContent, resetAddCardForm } from '../components/utils.js';
 
 // function calls
-enableValidation();
+enableValidation(config);
 renderInitialCards(initialCards);
 // functions declaring
 function renderCard(card, container) {
@@ -22,7 +22,7 @@ function submitCardForm(evt) {
   const card = createCard(data);
   renderCard(card, elementsList);
   closePopup(addPhotoPopup);
-  addCardForm.reset();
+  resetAddCardForm();
   disableSubmitButton();
 };
 
@@ -45,7 +45,6 @@ const openProfilePopupButton = document.querySelector('.profile__button'); // к
 const addPhotoButton = document.querySelector('.add-button')  // нашел кнопку открытия окна добавления карточки
 const profileCloseButton = document.querySelector('.profile-close-button'); // кнопка закрытия окна редактирования профиля
 const closeAddPhotoPopup = document.querySelector('.popup__photo-close-button'); // нашел кнопку закрытия окна добавления карточки
-const addCardForm = document.querySelector('.card-form'); // форма создания карточки
 const closePhotoButton = document.querySelector('.photo__close-button'); // кнопка закрытия биг имейджа
 
 

@@ -1,4 +1,4 @@
-import { profilePopup, readProfileContent, resetInput, addPhotoPopup } from '../components/utils.js';
+import { profilePopup, readProfileContent, addPhotoPopup, resetAddCardForm } from '../components/utils.js';
 import { deleteErrorMessages } from '../components/validate.js';
 
 function openPopup(popup) {
@@ -25,7 +25,7 @@ function openProfile () {
   deleteErrorMessages();
 };
 function openCardPopup () {
-  resetInput();
+  resetAddCardForm();
   openPopup(addPhotoPopup);
   deleteErrorMessages();
 };

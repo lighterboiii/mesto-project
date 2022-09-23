@@ -80,15 +80,7 @@ const addEventListeners = (form) => {
   });
 };
 // поиск всех форм в документе, отмена для каждой стандартного поведения и добавление слушателей событий на все формы
-const enableValidation = (config = {
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  submitButtonSelector: '.form__button',
-  inactiveButtonClass: 'form__button_inactive',
-  inputErrorClass: 'form__item_type_error',
-  errorClass: 'form__item-error_active',
-  errorInput: 'form__item-error'
-}) => {
+const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((form) => {
     form.addEventListener('submit', function (evt) {
@@ -98,4 +90,4 @@ const enableValidation = (config = {
   });
 };
 
-export { enableValidation, deleteErrorMessages, disableSubmitButton };
+export { enableValidation, deleteErrorMessages, disableSubmitButton, config };

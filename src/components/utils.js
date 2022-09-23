@@ -32,11 +32,8 @@ function fillInputContent () {
   profileName.textContent = profileFormNameInput.value;
   profileCaption.textContent = profileFormCaptionInput.value;
 };
-function resetInput () {
-  const formElements = document.querySelectorAll('.form');
-  formElements.forEach((form) => {
-    form.reset();
-  })
+function resetAddCardForm () {
+  addCardForm.reset();
 };
 
 const profilePopup = document.querySelector('.popup__profile'); // модальное окно редактирования профиля
@@ -47,5 +44,6 @@ const profileFormNameInput = document.querySelector('.form__item_type_name');
 const profileFormCaptionInput = document.querySelector('.form__item_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileCaption = document.querySelector('.profile__caption');
+const addCardForm = document.querySelector('.card-form'); // форма создания карточки
 
-export { profilePopup, formItemPhotoCaption, formItemPhotoLink, addPhotoPopup, readProfileContent, fillInputContent, initialCards, resetInput };
+export { addCardForm, profilePopup, formItemPhotoCaption, formItemPhotoLink, addPhotoPopup, readProfileContent, fillInputContent, initialCards, resetAddCardForm };
