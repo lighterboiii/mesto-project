@@ -1,7 +1,11 @@
 import { openPopup } from "./modal.js";
+import { renderInitialCards, postCard } from '../components/api.js';
 
+
+renderInitialCards();
 //функция создания карточки c изображением
 function createCard(data) {
+  postCard(data);
   const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
   const imageElement = element.querySelector('.elements__img');
   const likeButton = element.querySelector('.like-button');

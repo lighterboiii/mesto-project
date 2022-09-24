@@ -1,5 +1,6 @@
 import { profilePopup, readProfileContent, addPhotoPopup, resetAddCardForm } from '../components/utils.js';
 import { deleteErrorMessages } from '../components/validate.js';
+import { avatarEditForm, avatarEditPopup } from '../pages/index.js';
 
 function escHandler() {
   if (event.key === 'Escape') {
@@ -30,9 +31,14 @@ function openCardPopup() {
   openPopup(addPhotoPopup);
   deleteErrorMessages();
 };
-function closeCardPopup(popup) {
-  closePopup(popup);
-};
+function openAvatarPopup() {
+  avatarEditForm.reset();
+  openPopup(avatarEditPopup);
+  deleteErrorMessages();
+}
+// function closeCardPopup(popup) {
+//   closePopup(popup);
+// };
 
 
-export { closeByOverlay, openProfile, closeCardPopup, closePopup, openPopup, openCardPopup };
+export { closeByOverlay, openProfile, closePopup, openPopup, openCardPopup, openAvatarPopup };
