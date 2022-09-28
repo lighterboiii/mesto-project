@@ -23,7 +23,6 @@ function closeByOverlay(evt) {
   }
 };
 function openProfile() {
-  // readProfileContent();
   getInfo(profileName.textContent, profileCaption.textContent)
   openPopup(profilePopup);
   deleteErrorMessages();
@@ -38,15 +37,13 @@ function openAvatarPopup() {
   openPopup(avatarEditPopup);
   deleteErrorMessages();
 };
-
-// поработать над этим
-function toggleButtonText(saveButton) {
-  if (document.readyState === 'loading') {
-    saveButton.textContent = 'Сохранение...'
+function toggleButtonText (isLoading, button, originalText) {
+  if (isLoading) {
+    button.textContent = 'Сохранение...'
   } else {
-    saveButton.textContent = 'Сохранить';
+    button.textContent = originalText;
   }
-};
+}
 
 
 export { closeByOverlay, openProfile, closePopup, openPopup, openCardPopup, openAvatarPopup, toggleButtonText };

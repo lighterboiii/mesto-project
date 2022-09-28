@@ -25,6 +25,9 @@ const openedImageCaption = document.querySelector('.photo-card__caption'); // о
 const elementsList = document.querySelector('.elements');
 const imagePopup = document.querySelector('.photo-card'); // открытое фото
 const elementsTemplate = document.querySelector('#elements__template').content;
+const profileSubmitButton = document.querySelector('.profile-submit-button'); // сабмит-кнопка профиля
+const createCardButton = document.querySelector('.create-card-button'); // кнопка сабмита карточки
+const avatarSubmitButton = document.querySelector('.avatar-button'); // сабмит-кнопка аватарки
 
 export {
   profileAvatar,
@@ -52,5 +55,8 @@ export {
   openedImageCaption,
   elementsList,
   imagePopup,
-  elementsTemplate
+  elementsTemplate,
+  profileSubmitButton,
+  createCardButton,
+  avatarSubmitButton
 };

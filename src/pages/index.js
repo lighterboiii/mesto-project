@@ -19,7 +19,6 @@ import {
   profileCloseButton,
   addPhotoButton,
   openProfilePopupButton,
-  saveButton,
   elementsList,
   profilePopup,
   addPhotoPopup,
@@ -27,32 +26,45 @@ import {
   profileFormNameInput,
   profileFormCaptionInput,
   formItemPhotoCaption,
-  formItemPhotoLink } from '../components/utils.js';
+  formItemPhotoLink,
+  profileSubmitButton,
+  createCardButton,
+  avatarSubmitButton } from '../components/utils.js';
 
 // function calls
 enableValidation(config);
 // functions declaring
+// функция рендера карточки первой в список
 function renderCard(card, container) {
   container.prepend(card);
 };
+// функция для рендера карточек с сервера от старых к новым
+function renderServerCard(card, container) {
+  container.append(card);
+}
+// функция рендера на сабмит формы добавления карточки
+function renderOnSubmit(res) {
+  const card = createCard(res, userId);
+  renderCard(card, elementsList);
+}
 function submitCardForm(evt) {
   evt.preventDefault();
-  toggleButtonText(saveButton);
+  toggleButtonText(true, createCardButton, 'Создать')
   postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
     .then((res) => {
-      renderCardOnSubmit(res)
+      renderOnSubmit(res)
       closePopup(addPhotoPopup);
       addCardForm.reset();
       disableSubmitButton();
     })
+    .catch((err) => {
+      console.log(err)
+    })
 };
-function renderCardOnSubmit(res) {
-  const card = createCard(res, userId);
-  renderCard(card, elementsList);
-}
 // функция обновления user info
 function submitProfileForm(event) {
   event.preventDefault();
+  toggleButtonText(true, profileSubmitButton, 'Сохранить')
   setUserInfo(profileFormNameInput.value, profileFormCaptionInput.value)
     .then(() => {
       setInfo(profileFormNameInput.value, profileFormCaptionInput.value)
@@ -65,6 +77,7 @@ function submitProfileForm(event) {
 // функция обновления аватара
 function submitAvatar(event) {
   event.preventDefault();
+  toggleButtonText(true, avatarSubmitButton, 'Сохранить')
   setAvatar(avatarInput.value)
     .then((res) => {
       profileAvatar.src = res.avatar
@@ -90,13 +103,12 @@ function setInfo(name, about) {
 let userId;
 Promise.all([getUserInfo(), getInitialCards()])
   .then((res) => {
-    console.log(res)
     userId = res[0]._id;
     profileAvatar.src = res[0].avatar;
     setInfo(res[0].name, res[0].about);
     res[1].forEach((item) => {
       const card = createCard(item, userId);
-      renderCard(card, elementsList);
+      renderServerCard(card, elementsList);
     })
   })
   .catch((err) => {
@@ -121,18 +133,3 @@ avatarEditPopup.addEventListener('submit', submitAvatar); // сохранени�
 document.addEventListener("DOMContentLoaded", getUserInfo); // получение информации о пользователе
 
 export { renderCard, getInfo, setInfo };
-
-
-
-// // consts
-// const saveButton = document.querySelector('.form__button');
-// const openProfilePopupButton = document.querySelector('.profile__button'); // кнопка открытия модального окна редактирования профиля
-// const addPhotoButton = document.querySelector('.add-button')  // нашел кнопку открытия окна добавления карточки
-// const profileCloseButton = document.querySelector('.profile-close-button'); // кнопка закрытия окна редактирования профиля
-// const closeAddPhotoPopup = document.querySelector('.popup__photo-close-button'); // нашел кнопку закрытия окна добавления карточки
-// const closePhotoButton = document.querySelector('.photo__close-button'); // кнопка закрытия биг имейджа
-// const profileAvatarButton = document.querySelector('.profile__avatar-button'); // кнопка октрытия попапа аватарки
-// const avaCloseButton = document.querySelector('.avatar-close-button'); // кнопка закрытия попапа аватарки
-// const avatarEditPopup = document.querySelector('.popup__avatar'); // окнр изменения аватара
-// const avatarEditForm = document.querySelector('.avatar-form') // форма изменения аватара
-// const avatarInput = document.querySelector('.form__item-avatar'); // поле ввода формы изм-я аватара

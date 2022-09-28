@@ -14,6 +14,7 @@ const getUserInfo = () => {
     if (res.ok) {
       return res.json()
     }
+    return Promise.reject(`Ошибка: ${res.status}`);
   })
 };
 
@@ -26,17 +27,23 @@ const setUserInfo = (name, caption) => {
       about: caption
     })
   })
+  .then(res => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
 };
 
 const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {  // рендер карточек с сервера
-    method: 'GET',
     headers: config.headers
   })
     .then(res => {
       if (res.ok) {
         return res.json()
       }
+      return Promise.reject(`Ошибка: ${res.status}`);
     })
 };
 
@@ -53,8 +60,10 @@ const postCard = (name, link) => {
     if (res.ok) {
       return res.json()
     }
+    return Promise.reject(`Ошибка: ${res.status}`);
   })
 };
+
 const setAvatar = (avatar) => {
   return fetch(`${config.baseUrl}/users/me/avatar`, { // отправка аватара на сервер
     method: 'PATCH',
@@ -67,6 +76,7 @@ const setAvatar = (avatar) => {
     if (res.ok) {
       return res.json()
     }
+    return Promise.reject(`Ошибка: ${res.status}`);
   })
 };
 
@@ -96,7 +106,7 @@ const deleteLike = (data) => { // работает
     });
 };
 
-// над этим поработать
+
 const deleteCard = (data) => {
   return fetch(`${config.baseUrl}/cards/card/${data._id}`, { // исправить
     method: 'DELETE',
