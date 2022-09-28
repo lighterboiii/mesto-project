@@ -1,11 +1,12 @@
-import { profilePopup, readProfileContent, addPhotoPopup, resetAddCardForm } from '../components/utils.js';
+import { profilePopup, addPhotoPopup, profileName, profileCaption,
+  addCardForm, avatarEditForm, avatarEditPopup } from '../components/utils.js';
 import { deleteErrorMessages } from '../components/validate.js';
-import { avatarEditForm, avatarEditPopup } from '../pages/index.js';
+import { getInfo } from '../pages/index.js';
 
 function escHandler() {
   if (event.key === 'Escape') {
-   const opened = document.querySelector('.popup_opened');
-   closePopup(opened);
+    const opened = document.querySelector('.popup_opened');
+    closePopup(opened);
   }
 };
 function openPopup(popup) {
@@ -22,12 +23,13 @@ function closeByOverlay(evt) {
   }
 };
 function openProfile() {
-  readProfileContent(profilePopup);
+  // readProfileContent();
+  getInfo(profileName.textContent, profileCaption.textContent)
   openPopup(profilePopup);
   deleteErrorMessages();
 };
 function openCardPopup() {
-  resetAddCardForm();
+  addCardForm.reset();
   openPopup(addPhotoPopup);
   deleteErrorMessages();
 };
@@ -35,10 +37,16 @@ function openAvatarPopup() {
   avatarEditForm.reset();
   openPopup(avatarEditPopup);
   deleteErrorMessages();
-}
-// function closeCardPopup(popup) {
-//   closePopup(popup);
-// };
+};
+
+// поработать над этим
+function toggleButtonText(saveButton) {
+  if (document.readyState === 'loading') {
+    saveButton.textContent = 'Сохранение...'
+  } else {
+    saveButton.textContent = 'Сохранить';
+  }
+};
 
 
-export { closeByOverlay, openProfile, closePopup, openPopup, openCardPopup, openAvatarPopup };
+export { closeByOverlay, openProfile, closePopup, openPopup, openCardPopup, openAvatarPopup, toggleButtonText };
