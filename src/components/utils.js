@@ -1,41 +1,15 @@
-const initialCards = [
-  {
-    name: 'Байкал',
-    link: 'https://images.unsplash.com/photo-1552588353-2f2cc7d429e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=778&q=80'
-  },
-  {
-    name: 'Красная Поляна',
-    link: 'https://images.unsplash.com/photo-1658170213328-c9d745df2041?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
-  },
-  {
-    name: 'Белгород',
-    link: 'https://images.unsplash.com/photo-1658170213798-080be7293ffd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2950&q=80'
-  },
-  {
-    name: 'Санкт-Петербург',
-    link: 'https://images.unsplash.com/photo-1658208004995-e75ea6e37654?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    name: 'Рязань',
-    link: 'https://images.unsplash.com/photo-1613411278232-e29e3506f4fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1611&q=80'
-  },
-  {
-    name: 'Мценск',
-    link: 'https://images.unsplash.com/photo-1658170213269-dc3aa8f27d0e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
-  }
-];
-function readProfileContent () {
-  profileFormNameInput.value = profileName.textContent;
-  profileFormCaptionInput.value = profileCaption.textContent;
-};
-function fillInputContent () {
-  profileName.textContent = profileFormNameInput.value;
-  profileCaption.textContent = profileFormCaptionInput.value;
-};
-function resetAddCardForm () {
-  addCardForm.reset();
-};
-
+// consts
+const saveButton = document.querySelector('.form__button');
+const openProfilePopupButton = document.querySelector('.profile__button'); // кнопка открытия модального окна редактирования профиля
+const addPhotoButton = document.querySelector('.add-button')  // нашел кнопку открытия окна добавления карточки
+const profileCloseButton = document.querySelector('.profile-close-button'); // кнопка закрытия окна редактирования профиля
+const closeAddPhotoPopup = document.querySelector('.popup__photo-close-button'); // нашел кнопку закрытия окна добавления карточки
+const closePhotoButton = document.querySelector('.photo__close-button'); // кнопка закрытия биг имейджа
+const profileAvatarButton = document.querySelector('.profile__avatar-button'); // кнопка октрытия попапа аватарки
+const avaCloseButton = document.querySelector('.avatar-close-button'); // кнопка закрытия попапа аватарки
+const avatarEditPopup = document.querySelector('.popup__avatar'); // окнр изменения аватара
+const avatarEditForm = document.querySelector('.avatar-form') // форма изменения аватара
+const avatarInput = document.querySelector('.form__item-avatar'); // поле ввода формы изм-я аватара
 const profilePopup = document.querySelector('.popup__profile'); // модальное окно редактирования профиля
 const formItemPhotoLink = document.querySelector('.form__item_type_link');
 const formItemPhotoCaption = document.querySelector('.form__item_type_photo'); // инпут с подписью к фото
@@ -45,5 +19,44 @@ const profileFormCaptionInput = document.querySelector('.form__item_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileCaption = document.querySelector('.profile__caption');
 const addCardForm = document.querySelector('.card-form'); // форма создания карточки
+const profileAvatar = document.querySelector('.profile__avatar');
+const openedImage = document.querySelector('.photo-card__image'); // фото полноразмерное
+const openedImageCaption = document.querySelector('.photo-card__caption'); // описание полноращмерного фото
+const elementsList = document.querySelector('.elements');
+const imagePopup = document.querySelector('.photo-card'); // открытое фото
+const elementsTemplate = document.querySelector('#elements__template').content;
+const profileSubmitButton = document.querySelector('.profile-submit-button'); // сабмит-кнопка профиля
+const createCardButton = document.querySelector('.create-card-button'); // кнопка сабмита карточки
+const avatarSubmitButton = document.querySelector('.avatar-button'); // сабмит-кнопка аватарки
 
-export { addCardForm, profilePopup, formItemPhotoCaption, formItemPhotoLink, addPhotoPopup, readProfileContent, fillInputContent, initialCards, resetAddCardForm };
+export {
+  profileAvatar,
+  profileName,
+  profileCaption,
+  addCardForm,
+  profilePopup,
+  formItemPhotoCaption,
+  formItemPhotoLink,
+  addPhotoPopup,
+  profileFormNameInput,
+  profileFormCaptionInput,
+  saveButton,
+  openProfilePopupButton,
+  addPhotoButton,
+  profileCloseButton,
+  closeAddPhotoPopup,
+  closePhotoButton,
+  profileAvatarButton,
+  avaCloseButton,
+  avatarEditForm,
+  avatarEditPopup,
+  avatarInput,
+  openedImage,
+  openedImageCaption,
+  elementsList,
+  imagePopup,
+  elementsTemplate,
+  profileSubmitButton,
+  createCardButton,
+  avatarSubmitButton
+};

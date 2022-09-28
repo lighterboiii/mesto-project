@@ -1,10 +1,12 @@
-import { profilePopup, readProfileContent, addPhotoPopup, resetAddCardForm } from '../components/utils.js';
+import { profilePopup, addPhotoPopup, profileName, profileCaption,
+  addCardForm, avatarEditForm, avatarEditPopup } from '../components/utils.js';
 import { deleteErrorMessages } from '../components/validate.js';
+import { getInfo } from '../pages/index.js';
 
 function escHandler() {
   if (event.key === 'Escape') {
-   const opened = document.querySelector('.popup_opened');
-   closePopup(opened);
+    const opened = document.querySelector('.popup_opened');
+    closePopup(opened);
   }
 };
 function openPopup(popup) {
@@ -21,18 +23,27 @@ function closeByOverlay(evt) {
   }
 };
 function openProfile() {
-  readProfileContent(profilePopup);
+  getInfo(profileName.textContent, profileCaption.textContent)
   openPopup(profilePopup);
   deleteErrorMessages();
 };
 function openCardPopup() {
-  resetAddCardForm();
+  addCardForm.reset();
   openPopup(addPhotoPopup);
   deleteErrorMessages();
 };
-function closeCardPopup(popup) {
-  closePopup(popup);
+function openAvatarPopup() {
+  avatarEditForm.reset();
+  openPopup(avatarEditPopup);
+  deleteErrorMessages();
 };
+function toggleButtonText (isLoading, button, originalText) {
+  if (isLoading) {
+    button.textContent = 'Сохранение...'
+  } else {
+    button.textContent = originalText;
+  }
+}
 
 
-export { closeByOverlay, openProfile, closeCardPopup, closePopup, openPopup, openCardPopup };
+export { closeByOverlay, openProfile, closePopup, openPopup, openCardPopup, openAvatarPopup, toggleButtonText };
