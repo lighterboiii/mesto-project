@@ -1,5 +1,5 @@
-import { openPopup } from "./modal.js";
-import { elementsTemplate, openedImage, openedImageCaption, imagePopup } from "./utils.js";
+import { closePopup, openPopup } from "./modal.js";
+import { elementsTemplate, openedImage, openedImageCaption, imagePopup, areUSurePopup, yesButton, deleteForm } from "./utils.js";
 import { setLike, deleteLike, deleteCard, getInitialCards } from '../components/api.js';
 
 //функция создания карточки c изображением
@@ -35,21 +35,25 @@ function createCard(data, userId) {
           console.log(err)
         })
     }
-  });
+  })
   likesCount.textContent = String(data.likes.length);
   if (ownerId === userId) {
     deleteButton.style.visibility = 'visible';
-    deleteButton.addEventListener('click', function (evt) {
-      deleteHandler(data);
-      evt.target.closest('.elements__item').remove();
-    });
+    deleteButton.addEventListener('mousedown', function (data) {
+      openPopup(areUSurePopup);
+      areUSurePopup.addEventListener('submit', function (evt) {
+        evt.preventDefault();
+        deleteButton.closest('.elements__item').remove();
+        closePopup(areUSurePopup);
+        deleteHandler(data);
+      })
+    })
   }
   imageElement.addEventListener('click', openImage);
   return element;
 };
 // хендлер удаления карточки
 function deleteHandler(data) {
-  console.log(data._id)
   deleteCard(data)
     .catch((err) => {
       console.log(err);
@@ -67,8 +71,7 @@ function findActiveLikes(data, userId, likeButton) {
   getInitialCards()
     .then(() => {
       data.likes.forEach((like) => {
-        console.log(like._id)
-        if(like._id === userId) {
+        if (like._id === userId) {
           likeButton.classList.add('like-button_active');
         }
       })

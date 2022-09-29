@@ -28,6 +28,9 @@ const elementsTemplate = document.querySelector('#elements__template').content;
 const profileSubmitButton = document.querySelector('.profile-submit-button'); // сабмит-кнопка профиля
 const createCardButton = document.querySelector('.create-card-button'); // кнопка сабмита карточки
 const avatarSubmitButton = document.querySelector('.avatar-button'); // сабмит-кнопка аватарки
+const areUSurePopup = document.querySelector('.popup__delete'); // попап подтверждения удаления карточки
+const yesButton = document.querySelector('.yes-button'); // кнопка "да" попапа удаления
+const deleteForm = document.querySelector('.delete-form');
 
 export {
   profileAvatar,
@@ -58,5 +61,8 @@ export {
   elementsTemplate,
   profileSubmitButton,
   createCardButton,
-  avatarSubmitButton
+  avatarSubmitButton,
+  areUSurePopup,
+  yesButton,
+  deleteForm
 };
