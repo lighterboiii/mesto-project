@@ -49,8 +49,7 @@ function createCard(data, userId) {
 };
 // хендлер удаления карточки
 function deleteHandler(data) {
-  console.log(data._id)
-  deleteCard(data)
+  deleteCard(data._id)
     .catch((err) => {
       console.log(err);
     });
@@ -67,7 +66,6 @@ function findActiveLikes(data, userId, likeButton) {
   getInitialCards()
     .then(() => {
       data.likes.forEach((like) => {
-        console.log(like._id)
         if(like._id === userId) {
           likeButton.classList.add('like-button_active');
         }

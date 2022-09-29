@@ -108,7 +108,7 @@ const deleteLike = (data) => { // работает
 
 
 const deleteCard = (data) => {
-  return fetch(`${config.baseUrl}/cards/card/${data._id}`, { // исправить
+  return fetch(`${config.baseUrl}/cards/${data._id}`, { // исправить
     method: 'DELETE',
     headers: config.headers
   })
