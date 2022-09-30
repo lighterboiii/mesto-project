@@ -1,5 +1,5 @@
-import { openPopup } from "./modal.js";
-import { elementsTemplate, openedImage, openedImageCaption, imagePopup } from "./utils.js";
+import { closePopup, openPopup } from "./modal.js";
+import { elementsTemplate, openedImage, openedImageCaption, imagePopup, areUSurePopup } from "./utils.js";
 import { setLike, deleteLike, deleteCard, getInitialCards } from '../components/api.js';
 
 //функция создания карточки c изображением
@@ -35,14 +35,19 @@ function createCard(data, userId) {
           console.log(err)
         })
     }
-  });
+  })
   likesCount.textContent = String(data.likes.length);
   if (ownerId === userId) {
     deleteButton.style.visibility = 'visible';
-    deleteButton.addEventListener('click', function (evt) {
-      deleteHandler(data);
-      evt.target.closest('.elements__item').remove();
-    });
+    deleteButton.addEventListener('click', function (data) {
+      openPopup(areUSurePopup);
+      areUSurePopup.addEventListener('submit', function () {
+        event.preventDefault();
+        deleteButton.closest('.elements__item').remove();
+        closePopup(areUSurePopup);
+        deleteHandler(data);
+      })
+    })
   }
   imageElement.addEventListener('click', openImage);
   return element;
@@ -66,7 +71,7 @@ function findActiveLikes(data, userId, likeButton) {
   getInitialCards()
     .then(() => {
       data.likes.forEach((like) => {
-        if(like._id === userId) {
+        if (like._id === userId) {
           likeButton.classList.add('like-button_active');
         }
       })

@@ -43,7 +43,16 @@ function toggleButtonText (isLoading, button, originalText) {
   } else {
     button.textContent = originalText;
   }
-}
+};
+// function areYouSure (popup) {
+//   openPopup(areUSurePopup)
+// };
+
+// deleteButton.addEventListener('click', openPopup(areUSurePopup))
+
+
+// const areUSurePopup = document.querySelector('.popup__delete');
+// const deleteButton = document.querySelector('.delete-button');
 
 
 export { closeByOverlay, openProfile, closePopup, openPopup, openCardPopup, openAvatarPopup, toggleButtonText };
