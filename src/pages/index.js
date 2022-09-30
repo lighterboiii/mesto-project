@@ -29,7 +29,10 @@ import {
   formItemPhotoLink,
   profileSubmitButton,
   createCardButton,
-  avatarSubmitButton } from '../components/utils.js';
+  avatarSubmitButton,
+  areUSurePopup,
+  deleteCloseButton
+} from '../components/utils.js';
 
 // function calls
 enableValidation(config);
@@ -117,6 +120,7 @@ Promise.all([getUserInfo(), getInitialCards()])
 
 // event listeners
 closePhotoButton.addEventListener('click', () => closePopup(imagePopup)); // закрытие развернутого изображения
+deleteCloseButton.addEventListener('click', () => closePopup(areUSurePopup));
 openProfilePopupButton.addEventListener('click', openProfile); // открыть форму редактирования профиля
 profileCloseButton.addEventListener('click', () => closePopup(profilePopup)); // закрытие окна редактирования профиля
 profilePopup.addEventListener('submit', submitProfileForm); // сабмит окна редактирования профиля
@@ -126,6 +130,7 @@ addCardForm.addEventListener('submit', submitCardForm); // отправка фо
 profilePopup.addEventListener('mousedown', closeByOverlay); // закрытие попапов нажатием на оверлей
 addPhotoPopup.addEventListener('mousedown', closeByOverlay);
 imagePopup.addEventListener('mousedown', closeByOverlay);
+areUSurePopup.addEventListener('mousedown', closeByOverlay);
 avatarEditPopup.addEventListener('mousedown', closeByOverlay);
 profileAvatarButton.addEventListener('click', openAvatarPopup); // открыть попап редактирования аватара
 avaCloseButton.addEventListener('click', () => closePopup(avatarEditPopup)); // закрыть попап редактирования аватара

@@ -1,5 +1,5 @@
 import { closePopup, openPopup } from "./modal.js";
-import { elementsTemplate, openedImage, openedImageCaption, imagePopup, areUSurePopup, yesButton, deleteForm } from "./utils.js";
+import { elementsTemplate, openedImage, openedImageCaption, imagePopup, areUSurePopup } from "./utils.js";
 import { setLike, deleteLike, deleteCard, getInitialCards } from '../components/api.js';
 
 //функция создания карточки c изображением
@@ -39,10 +39,10 @@ function createCard(data, userId) {
   likesCount.textContent = String(data.likes.length);
   if (ownerId === userId) {
     deleteButton.style.visibility = 'visible';
-    deleteButton.addEventListener('mousedown', function (data) {
+    deleteButton.addEventListener('click', function (data) {
       openPopup(areUSurePopup);
-      areUSurePopup.addEventListener('submit', function (evt) {
-        evt.preventDefault();
+      areUSurePopup.addEventListener('submit', function () {
+        event.preventDefault();
         deleteButton.closest('.elements__item').remove();
         closePopup(areUSurePopup);
         deleteHandler(data);
@@ -54,7 +54,7 @@ function createCard(data, userId) {
 };
 // хендлер удаления карточки
 function deleteHandler(data) {
-  deleteCard(data)
+  deleteCard(data._id)
     .catch((err) => {
       console.log(err);
     });
