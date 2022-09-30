@@ -22,6 +22,7 @@ _____
  + Webpack
  + Client-side form validation
  + Asynchronous JS
+ + Promise
  + Api 
 ____
 * [Ссылка на сайт github pages](https://lighterboiii.github.io/mesto-project/)
