@@ -1,5 +1,5 @@
 import { profilePopup, addPhotoPopup, profileName, profileCaption,
-  addCardForm, avatarEditForm, avatarEditPopup } from '../components/utils.js';
+  addCardForm, avatarEditForm, avatarEditPopup } from './constants.js';
 import { deleteErrorMessages } from '../components/validate.js';
 import { getInfo } from '../pages/index.js';
 

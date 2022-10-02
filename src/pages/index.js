@@ -32,7 +32,7 @@ import {
   avatarSubmitButton,
   areUSurePopup,
   deleteCloseButton
-} from '../components/utils.js';
+} from '../components/constants.js';
 
 // function calls
 enableValidation(config);

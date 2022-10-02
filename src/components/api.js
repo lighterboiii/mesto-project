@@ -1,3 +1,5 @@
+import { checkResponse } from "./utils";
+
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-15',
   headers: {
@@ -10,12 +12,7 @@ const getUserInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {  // получение информации пользователя
     headers: config.headers
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+    .then(checkResponse)
 };
 
 const setUserInfo = (name, caption) => {
@@ -27,24 +24,14 @@ const setUserInfo = (name, caption) => {
       about: caption
     })
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+    .then(checkResponse)
 };
 
 const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {  // рендер карточек с сервера
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponse)
 };
 
 const postCard = (name, link) => {
@@ -56,12 +43,7 @@ const postCard = (name, link) => {
       link: link
     })
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+    .then(checkResponse)
 };
 
 const setAvatar = (avatar) => {
@@ -72,12 +54,7 @@ const setAvatar = (avatar) => {
       avatar: avatar
     })
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+    .then(checkResponse)
 };
 
 const setLike = (data) => { // работает
@@ -85,12 +62,7 @@ const setLike = (data) => { // работает
     method: 'PUT',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse)
 };
 
 const deleteLike = (data) => { // работает
@@ -98,12 +70,7 @@ const deleteLike = (data) => { // работает
     method: 'DELETE',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse)
 };
 
 
@@ -112,12 +79,7 @@ const deleteCard = (data) => {
     method: 'DELETE',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponse)
 };
 
 
