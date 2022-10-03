@@ -27,9 +27,6 @@ import {
   profileFormCaptionInput,
   formItemPhotoCaption,
   formItemPhotoLink,
-  profileSubmitButton,
-  createCardButton,
-  avatarSubmitButton,
   areUSurePopup,
   deleteCloseButton
 } from '../components/constants.js';
@@ -44,30 +41,34 @@ function renderCard(card, container) {
 // функция для рендера карточек с сервера от старых к новым
 function renderServerCard(card, container) {
   container.append(card);
-}
+};
 // функция рендера на сабмит формы добавления карточки
 function renderOnSubmit(res) {
   const card = createCard(res, userId);
   renderCard(card, elementsList);
-}
+};
 function submitCardForm(evt) {
   evt.preventDefault();
-  toggleButtonText(true, createCardButton, 'Создать')
+  const submitButton = evt.submitter;
+  toggleButtonText(true, submitButton, 'Создать')
   postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
     .then((res) => {
       renderOnSubmit(res)
       closePopup(addPhotoPopup);
       addCardForm.reset();
-      disableSubmitButton();
     })
     .catch((err) => {
       console.log(err)
     })
+    .finally(() => {
+      toggleButtonText(false, submitButton, 'Создать')
+    })
 };
 // функция обновления user info
-function submitProfileForm(event) {
-  event.preventDefault();
-  toggleButtonText(true, profileSubmitButton, 'Сохранить')
+function submitProfileForm(evt) {
+  evt.preventDefault();
+  const submitButton = evt.submitter;
+  toggleButtonText(true, submitButton, 'Сохранить')
   setUserInfo(profileFormNameInput.value, profileFormCaptionInput.value)
     .then(() => {
       setInfo(profileFormNameInput.value, profileFormCaptionInput.value)
@@ -76,11 +77,15 @@ function submitProfileForm(event) {
     .catch((err) => {
       console.log(err)
     })
+    .finally(() => {
+      toggleButtonText(false, submitButton, 'Сохранить')
+    })
 };
 // функция обновления аватара
-function submitAvatar(event) {
-  event.preventDefault();
-  toggleButtonText(true, avatarSubmitButton, 'Сохранить')
+function submitAvatar(evt) {
+  evt.preventDefault();
+  const submitButton = evt.submitter;
+  toggleButtonText(true, submitButton, 'Сохранить')
   setAvatar(avatarInput.value)
     .then((res) => {
       profileAvatar.src = res.avatar
@@ -89,6 +94,9 @@ function submitAvatar(event) {
     })
     .catch((err) => {
       console.log(err)
+    })
+    .finally(() => {
+      toggleButtonText(false, submitButton, 'Сохранить')
     })
 
 };
@@ -104,12 +112,13 @@ function setInfo(name, about) {
 }
 // func that get promises from Api for user info and rendered cards
 let userId;
+
 Promise.all([getUserInfo(), getInitialCards()])
-  .then((res) => {
-    userId = res[0]._id;
-    profileAvatar.src = res[0].avatar;
-    setInfo(res[0].name, res[0].about);
-    res[1].forEach((item) => {
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    profileAvatar.src = userData.avatar;
+    setInfo(userData.name, userData.about);
+    cards.forEach((item) => {
       const card = createCard(item, userId);
       renderServerCard(card, elementsList);
     })
@@ -135,6 +144,5 @@ avatarEditPopup.addEventListener('mousedown', closeByOverlay);
 profileAvatarButton.addEventListener('click', openAvatarPopup); // открыть попап редактирования аватара
 avaCloseButton.addEventListener('click', () => closePopup(avatarEditPopup)); // закрыть попап редактирования аватара
 avatarEditPopup.addEventListener('submit', submitAvatar); // сохранение аватарки
-document.addEventListener("DOMContentLoaded", getUserInfo); // получение информации о пользователе
 
 export { renderCard, getInfo, setInfo };

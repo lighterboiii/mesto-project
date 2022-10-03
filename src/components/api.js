@@ -1,4 +1,4 @@
-import { checkResponse } from "./utils";
+import { checkResponse } from "../components/utils.js";
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-15',
@@ -57,7 +57,7 @@ const setAvatar = (avatar) => {
     .then(checkResponse)
 };
 
-const setLike = (data) => { // работает
+const setLike = (data) => { // постановка лайка
   return fetch(`${config.baseUrl}/cards/likes/${data._id}`, {
     method: 'PUT',
     headers: config.headers
@@ -65,7 +65,7 @@ const setLike = (data) => { // работает
     .then(checkResponse)
 };
 
-const deleteLike = (data) => { // работает
+const deleteLike = (data) => {  // снятие лайка
   return fetch(`${config.baseUrl}/cards/likes/${data._id}`, {
     method: 'DELETE',
     headers: config.headers
@@ -75,7 +75,7 @@ const deleteLike = (data) => { // работает
 
 
 const deleteCard = (data) => {
-  return fetch(`${config.baseUrl}/cards/${data}`, { // исправить
+  return fetch(`${config.baseUrl}/cards/${data}`, { // удаление карточки
     method: 'DELETE',
     headers: config.headers
   })

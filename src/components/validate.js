@@ -5,11 +5,12 @@ const config = {
   inactiveButtonClass: 'form__button_inactive',
   inputErrorClass: 'form__item_type_error',
   errorClass: 'form__item-error_active',
-  submitPhotoSelector: 'create-card-button'
+  submitPhotoSelector: 'create-card-button',
+  formItemError: '.form__item-error'
 };
 // функция для очистки ошибок валидации
 const deleteErrorMessages = () => {
-  const errorMessages = Array.from(document.querySelectorAll('.form__item-error'));
+  const errorMessages = Array.from(document.querySelectorAll(config.formItemError));
   const errorBorders = Array.from(document.querySelectorAll(config.inputSelector));
   errorMessages.forEach((message) => {
     message.textContent = '';
@@ -19,11 +20,10 @@ const deleteErrorMessages = () => {
   })
 };
 // функция дизейблинга кнопки "Сохранить"
-const disableSubmitButton = () => {
-  const submitPhotoButton = document.querySelector(config.submitButtonSelector);
-  submitPhotoButton.setAttribute('disabled', true);
-  submitPhotoButton.classList.add(config.inactiveButtonClass);
-}
+const disableSubmitButton = (submitButton) => {
+  submitButton.setAttribute('disabled', true);
+  submitButton.classList.add(config.inactiveButtonClass);
+};
 // функция для показа сообщения об ошибке
 const showInputError = (form, input, message) => {
   const errorElement = form.querySelector(`.${input.id}-error`);
@@ -82,11 +82,11 @@ const addEventListeners = (form) => {
 // поиск всех форм в документе, отмена для каждой стандартного поведения и добавление слушателей событий на все формы
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((form) => {
-    form.addEventListener('submit', function (evt) {
+  formList.forEach((formSelector) => {
+    formSelector.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
-    addEventListeners(form);
+    addEventListeners(formSelector);
   });
 };
 
