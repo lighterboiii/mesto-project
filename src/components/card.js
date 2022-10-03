@@ -15,20 +15,20 @@ function createCard(data, userId) {
   imageElement.src = data.link;
   imageElement.alt = data.name;
   findActiveLikes(data, userId, likeButton)
-  likeButton.addEventListener('mousedown', function (evt) {
+  likeButton.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('like-button_active')) {
-      likeButton.classList.remove('like-button_active');
       deleteLike(data)
         .then((dataFromServer) => {
+          likeButton.classList.remove('like-button_active');
           likesCount.textContent = String(dataFromServer.likes.length);
         })
         .catch((err) => {
           console.log(err)
         })
     } else {
-      likeButton.classList.add('like-button_active');
       setLike(data)
         .then((dataFromServer) => {
+          likeButton.classList.add('like-button_active');
           likesCount.textContent = String(dataFromServer.likes.length);
         })
         .catch((err) => {
@@ -39,46 +39,35 @@ function createCard(data, userId) {
   likesCount.textContent = String(data.likes.length);
   if (ownerId === userId) {
     deleteButton.style.visibility = 'visible';
-    deleteButton.addEventListener('click', function (data) {
-      openPopup(areUSurePopup);
-      areUSurePopup.addEventListener('submit', function () {
-        event.preventDefault();
-        deleteButton.closest('.elements__item').remove();
-        closePopup(areUSurePopup);
-        deleteHandler(data);
-      })
-    })
+    deleteButton.addEventListener('click', function (evt) {
+      handleDelete(data)
+      evt.target.closest('.elements__item').remove();
+    });
   }
-  imageElement.addEventListener('click', openImage);
+  imageElement.addEventListener('click', () => openImage(data));
   return element;
 };
 // хендлер удаления карточки
-function deleteHandler(data) {
+function handleDelete(data) {
   deleteCard(data._id)
     .catch((err) => {
       console.log(err);
     });
 };
 // функция открытия развернутого изображения
-function openImage(evt) {
-  openedImage.src = evt.target.getAttribute('src');
-  openedImageCaption.textContent = evt.target.getAttribute('alt');
-  openedImage.alt = evt.target.getAttribute('alt');
+function openImage (data) {
+  openedImage.src = data.link;
+  openedImageCaption.textContent = data.name;
+  openedImage.alt = data.name;
   openPopup(imagePopup);
 };
 // функция отображения поставленного лайка
 function findActiveLikes(data, userId, likeButton) {
-  getInitialCards()
-    .then(() => {
-      data.likes.forEach((like) => {
-        if (like._id === userId) {
-          likeButton.classList.add('like-button_active');
-        }
-      })
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+  data.likes.forEach((like) => {
+    if (like._id === userId) {
+      likeButton.classList.add("like-button_active");
+    }
+  });
+};
 
 export { createCard }

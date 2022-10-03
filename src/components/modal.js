@@ -1,21 +1,21 @@
 import { profilePopup, addPhotoPopup, profileName, profileCaption,
-  addCardForm, avatarEditForm, avatarEditPopup } from './constants.js';
-import { deleteErrorMessages } from '../components/validate.js';
+  addCardForm, avatarEditForm, avatarEditPopup, createCardButton } from './constants.js';
+import { deleteErrorMessages, disableSubmitButton } from '../components/validate.js';
 import { getInfo } from '../pages/index.js';
 
-function escHandler() {
-  if (event.key === 'Escape') {
+function handleEsc(evt) {
+  if (evt.key === 'Escape') {
     const opened = document.querySelector('.popup_opened');
     closePopup(opened);
   }
 };
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  window.addEventListener('keydown', escHandler);
+  window.addEventListener('keydown', handleEsc);
 };
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  window.removeEventListener('keydown', escHandler);
+  window.removeEventListener('keydown', handleEsc);
 };
 function closeByOverlay(evt) {
   if (evt.target.classList.contains('popup')) {
@@ -28,6 +28,7 @@ function openProfile() {
   deleteErrorMessages();
 };
 function openCardPopup() {
+  disableSubmitButton(createCardButton);
   addCardForm.reset();
   openPopup(addPhotoPopup);
   deleteErrorMessages();
@@ -44,15 +45,5 @@ function toggleButtonText (isLoading, button, originalText) {
     button.textContent = originalText;
   }
 };
-// function areYouSure (popup) {
-//   openPopup(areUSurePopup)
-// };
-
-// deleteButton.addEventListener('click', openPopup(areUSurePopup))
-
-
-// const areUSurePopup = document.querySelector('.popup__delete');
-// const deleteButton = document.querySelector('.delete-button');
-
 
 export { closeByOverlay, openProfile, closePopup, openPopup, openCardPopup, openAvatarPopup, toggleButtonText };
