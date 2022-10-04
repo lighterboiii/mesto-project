@@ -1,5 +1,5 @@
 import { profilePopup, addPhotoPopup, profileName, profileCaption,
-  addCardForm, avatarEditForm, avatarEditPopup, createCardButton } from './constants.js';
+  addCardForm, avatarEditForm, avatarEditPopup, createCardButton, avatarSubmitButton } from './constants.js';
 import { deleteErrorMessages, disableSubmitButton } from '../components/validate.js';
 import { getInfo } from '../pages/index.js';
 
@@ -34,6 +34,7 @@ function openCardPopup() {
   deleteErrorMessages();
 };
 function openAvatarPopup() {
+  disableSubmitButton(avatarSubmitButton);
   avatarEditForm.reset();
   openPopup(avatarEditPopup);
   deleteErrorMessages();

@@ -1,8 +1,8 @@
 import '../pages/index.css';
 
-import { disableSubmitButton, enableValidation, config } from '../components/validate.js';
+import { enableValidation, config } from '../components/validate.js';
 import { createCard } from '../components/card.js';
-import { closeByOverlay, openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
+import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
 import { getUserInfo, setUserInfo, setAvatar, postCard, getInitialCards } from '../components/api.js';
 import {
   profileAvatar,
@@ -12,23 +12,16 @@ import {
   avatarEditForm,
   avatarEditPopup,
   avatarInput,
-  avaCloseButton,
   profileAvatarButton,
-  closePhotoButton,
-  closeAddPhotoPopup,
-  profileCloseButton,
   addPhotoButton,
   openProfilePopupButton,
   elementsList,
   profilePopup,
   addPhotoPopup,
-  imagePopup,
   profileFormNameInput,
   profileFormCaptionInput,
   formItemPhotoCaption,
   formItemPhotoLink,
-  areUSurePopup,
-  deleteCloseButton
 } from '../components/constants.js';
 
 // function calls
@@ -127,22 +120,23 @@ Promise.all([getUserInfo(), getInitialCards()])
     console.log(err);
   });
 
-// event listeners
-closePhotoButton.addEventListener('click', () => closePopup(imagePopup)); // закрытие развернутого изображения
-deleteCloseButton.addEventListener('click', () => closePopup(areUSurePopup));
+const popups = document.querySelectorAll('.popup')
+
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('form__close-button')) {
+          closePopup(popup)
+        }
+    })
+});
 openProfilePopupButton.addEventListener('click', openProfile); // открыть форму редактирования профиля
-profileCloseButton.addEventListener('click', () => closePopup(profilePopup)); // закрытие окна редактирования профиля
 profilePopup.addEventListener('submit', submitProfileForm); // сабмит окна редактирования профиля
 addPhotoButton.addEventListener('click', openCardPopup); // открытие формы добавления карточки на страницу
-closeAddPhotoPopup.addEventListener('click', () => closePopup(addPhotoPopup)); // закрытие формы добавления карточки
 addCardForm.addEventListener('submit', submitCardForm); // отправка формы добавления карточки на страницу
-profilePopup.addEventListener('mousedown', closeByOverlay); // закрытие попапов нажатием на оверлей
-addPhotoPopup.addEventListener('mousedown', closeByOverlay);
-imagePopup.addEventListener('mousedown', closeByOverlay);
-areUSurePopup.addEventListener('mousedown', closeByOverlay);
-avatarEditPopup.addEventListener('mousedown', closeByOverlay);
 profileAvatarButton.addEventListener('click', openAvatarPopup); // открыть попап редактирования аватара
-avaCloseButton.addEventListener('click', () => closePopup(avatarEditPopup)); // закрыть попап редактирования аватара
 avatarEditPopup.addEventListener('submit', submitAvatar); // сохранение аватарки
 
 export { renderCard, getInfo, setInfo };

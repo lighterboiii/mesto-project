@@ -82,11 +82,11 @@ const addEventListeners = (form) => {
 // поиск всех форм в документе, отмена для каждой стандартного поведения и добавление слушателей событий на все формы
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formSelector) => {
-    formSelector.addEventListener('submit', function (evt) {
+  formList.forEach((form) => {
+    form.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
-    addEventListeners(formSelector);
+    addEventListeners(form, config);
   });
 };
 

@@ -1,6 +1,6 @@
-import { closePopup, openPopup } from "../components/modal.js";
-import { elementsTemplate, openedImage, openedImageCaption, imagePopup, areUSurePopup } from "./constants.js";
-import { setLike, deleteLike, deleteCard, getInitialCards } from '../components/api.js';
+import { openPopup } from "../components/modal.js";
+import { elementsTemplate, openedImage, openedImageCaption, imagePopup } from "./constants.js";
+import { setLike, deleteLike, deleteCard } from '../components/api.js';
 
 //функция создания карточки c изображением
 function createCard(data, userId) {
@@ -39,20 +39,18 @@ function createCard(data, userId) {
   likesCount.textContent = String(data.likes.length);
   if (ownerId === userId) {
     deleteButton.style.visibility = 'visible';
-    deleteButton.addEventListener('click', function (evt) {
-      handleDelete(data)
-      evt.target.closest('.elements__item').remove();
+    deleteButton.addEventListener("click", function (evt) {
+      deleteCard(data._id)
+        .then(() => {
+          evt.target.closest(".elements__item").remove();  //  вот тут
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
   }
   imageElement.addEventListener('click', () => openImage(data));
   return element;
-};
-// хендлер удаления карточки
-function handleDelete(data) {
-  deleteCard(data._id)
-    .catch((err) => {
-      console.log(err);
-    });
 };
 // функция открытия развернутого изображения
 function openImage (data) {
