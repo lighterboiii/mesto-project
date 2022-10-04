@@ -22,11 +22,13 @@ import {
   profileFormCaptionInput,
   formItemPhotoCaption,
   formItemPhotoLink,
+  popups
 } from '../components/constants.js';
 
 // function calls
 enableValidation(config);
 // functions declaring
+
 // функция рендера карточки первой в список
 function renderCard(card, container) {
   container.prepend(card);
@@ -120,8 +122,7 @@ Promise.all([getUserInfo(), getInitialCards()])
     console.log(err);
   });
 
-const popups = document.querySelectorAll('.popup')
-
+//event listeners
 popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_opened')) {

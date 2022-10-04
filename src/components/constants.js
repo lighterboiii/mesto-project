@@ -25,6 +25,7 @@ const profileName = document.querySelector('.profile__name');
 const profilePopup = document.querySelector('.popup__profile'); // модальное окно редактирования профиля
 const profileSubmitButton = document.querySelector('.profile-submit-button'); // сабмит-кнопка профиля
 const saveButton = document.querySelector('.form__button');
+const popups = document.querySelectorAll('.popup')
 
 export {
   profileAvatar,
@@ -52,5 +53,6 @@ export {
   profileSubmitButton,
   createCardButton,
   avatarSubmitButton,
-  areUSurePopup
+  areUSurePopup,
+  popups
 };

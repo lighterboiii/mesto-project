@@ -42,7 +42,7 @@ function createCard(data, userId) {
     deleteButton.addEventListener("click", function (evt) {
       deleteCard(data._id)
         .then(() => {
-          evt.target.closest(".elements__item").remove();  //  вот тут
+          evt.target.closest(".elements__item").remove();
         })
         .catch((err) => {
           console.log(err);
