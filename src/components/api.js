@@ -45,9 +45,9 @@ export class Api {
   };
 
   setLike(data) { // постановка лайка
-    return fetch(`${config.baseUrl}/cards/likes/${data._id}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${data._id}`, {
       method: 'PUT',
-      headers: config.headers
+      headers: this._headers
     })
       .then(checkResponse)
   };
@@ -61,9 +61,9 @@ export class Api {
   };
 
   setAvatar (avatar) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, { // отправка аватара на сервер (в классе)
+    return fetch(`${this._baseUrl}/users/me/avatar`, { // отправка аватара на сервер (в классе)
       method: 'PATCH',
-      headers: config.headers,
+      headers: this._headers,
       body: JSON.stringify({
         avatar: avatar
       })
