@@ -1,6 +1,6 @@
 import '../pages/index.css';
 
-import { enableValidation, config } from '../components/validate.js';
+import { FormValidation, config } from '../components/validate.js';
 import { createCard } from '../components/card.js';
 import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
 import { Api } from '../components/Api.js';
@@ -24,7 +24,7 @@ import {
   formItemPhotoLink,
   popups
 } from '../components/constants.js';
-
+// экземпляр класса Api
 export const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-15',
   headers: {
@@ -32,6 +32,15 @@ export const api = new Api({
     'Content-Type': 'application/json'
   }
 });
+// эксземпляр класса FormValidation
+const setFormValidation = (formElement) => {
+  const formValidation = new FormValidation(formElement, config);
+  formValidation.enableValidation();
+}
+const formList = Array.from(document.querySelectorAll('.form'));
+formList.forEach(form => {
+  setFormValidation(form);
+})
 // func that get promises from Api for user info and rendered cards
 let userId;
 
@@ -49,7 +58,7 @@ api.getAllData()
     console.log(err);
   });
 // function calls
-enableValidation(config);
+// enableValidation(config);
 // functions declaring
 
 // функция рендера карточки первой в список

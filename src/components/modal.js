@@ -1,6 +1,6 @@
 import { profilePopup, addPhotoPopup, profileName, profileCaption,
   addCardForm, avatarEditForm, avatarEditPopup, createCardButton, avatarSubmitButton } from './constants.js';
-import { deleteErrorMessages, disableSubmitButton } from '../components/validate.js';
+// import { deleteErrorMessages, disableSubmitButton } from '../components/validate.js';
 import { getInfo } from '../pages/index.js';
 
 function handleEsc(evt) {
@@ -25,19 +25,19 @@ function closeByOverlay(evt) {
 function openProfile() {
   getInfo(profileName.textContent, profileCaption.textContent)
   openPopup(profilePopup);
-  deleteErrorMessages();
+  // deleteErrorMessages();
 };
 function openCardPopup() {
-  disableSubmitButton(createCardButton);
+  // disableSubmitButton(createCardButton);
   addCardForm.reset();
   openPopup(addPhotoPopup);
-  deleteErrorMessages();
+  // deleteErrorMessages();
 };
 function openAvatarPopup() {
-  disableSubmitButton(avatarSubmitButton);
+  // disableSubmitButton(avatarSubmitButton);
   avatarEditForm.reset();
   openPopup(avatarEditPopup);
-  deleteErrorMessages();
+  // deleteErrorMessages();
 };
 function toggleButtonText (isLoading, button, originalText) {
   if (isLoading) {
