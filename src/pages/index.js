@@ -3,7 +3,7 @@ import '../pages/index.css';
 import { enableValidation, config } from '../components/validate.js';
 import { createCard } from '../components/card.js';
 import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
-import { getUserInfo, setUserInfo, setAvatar, postCard, getInitialCards } from '../components/api.js';
+import { getUserInfo, setUserInfo, setAvatar, postCard, getInitialCards, Api } from '../components/Api.js';
 import {
   profileAvatar,
   profileName,
@@ -25,10 +25,32 @@ import {
   popups
 } from '../components/constants.js';
 
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/cohort-42',
+  headers: {
+    authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
+    'Content-Type': 'application/json'
+  }
+});
+// func that get promises from Api for user info and rendered cards
+let userId;
+
+api.getAllData()
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    profileAvatar.src = userData.avatar;
+    setInfo(userData.name, userData.about);
+    cards.forEach((item) => {
+      const card = createCard(item, userId);
+      renderServerCard(card, elementsList);
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 // function calls
 enableValidation(config);
 // functions declaring
-
 // функция рендера карточки первой в список
 function renderCard(card, container) {
   container.prepend(card);
@@ -104,23 +126,7 @@ function getInfo(name, about) {
 function setInfo(name, about) {
   profileName.textContent = name;
   profileCaption.textContent = about;
-}
-// func that get promises from Api for user info and rendered cards
-let userId;
-
-Promise.all([getUserInfo(), getInitialCards()])
-  .then(([userData, cards]) => {
-    userId = userData._id;
-    profileAvatar.src = userData.avatar;
-    setInfo(userData.name, userData.about);
-    cards.forEach((item) => {
-      const card = createCard(item, userId);
-      renderServerCard(card, elementsList);
-    })
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+};
 
 //event listeners
 popups.forEach((popup) => {

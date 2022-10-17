@@ -1,6 +1,6 @@
 import { openPopup } from "../components/modal.js";
 import { elementsTemplate, openedImage, openedImageCaption, imagePopup } from "./constants.js";
-import { setLike, deleteLike, deleteCard } from '../components/api.js';
+import { setLike, deleteLike, deleteCard } from './Api.js';
 
 //функция создания карточки c изображением
 function createCard(data, userId) {
