@@ -25,7 +25,7 @@ import {
   popups
 } from '../components/constants.js';
 
-const api = new Api({
+export const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-15',
   headers: {
     authorization: '79a19db7-3f97-4425-9bfc-faae1f13f72c',
