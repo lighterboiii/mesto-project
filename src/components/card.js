@@ -1,94 +1,71 @@
-import { closePopup } from "./modal.js";
-import { addPhotoPopup, formItemPhotoLink, formItemPhotoCaption } from "./utils.js";
+import { openPopup } from "../components/modal.js";
+import { elementsTemplate, openedImage, openedImageCaption, imagePopup } from "./constants.js";
+import { api } from "../pages/index.js";
 
-const initialCards = [
-  {
-    name: 'Байкал',
-    link: 'https://images.unsplash.com/photo-1552588353-2f2cc7d429e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=778&q=80'
-  },
-  {
-    name: 'Красная Поляна',
-    link: 'https://images.unsplash.com/photo-1658170213328-c9d745df2041?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
-  },
-  {
-    name: 'Белгород',
-    link: 'https://images.unsplash.com/photo-1658170213798-080be7293ffd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2950&q=80'
-  },
-  {
-    name: 'Санкт-Петербург',
-    link: 'https://images.unsplash.com/photo-1658208004995-e75ea6e37654?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    name: 'Рязань',
-    link: 'https://images.unsplash.com/photo-1613411278232-e29e3506f4fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1611&q=80'
-  },
-  {
-    name: 'Мценск',
-    link: 'https://images.unsplash.com/photo-1658170213269-dc3aa8f27d0e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
-  }
-];
 //функция создания карточки c изображением
-function createCard(data) {
-  const elementsTemplate = document.querySelector('#elements__template').content;
+function createCard(data, userId) {
   const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
-  element.querySelector('.elements__caption').textContent = data.name;
-  element.querySelector('.elements__img').src = data.link;
-  element.querySelector('.elements__img').alt = data.name;
-  const deleteButton = element.querySelector('.delete-button'); // удаление созданной карточки
-  deleteButton.addEventListener('click', function () {
-    const elementItem = deleteButton.closest('.elements__item');
-    elementItem.remove();
-  });
+  const imageElement = element.querySelector('.elements__img');
+  const imageCaption = element.querySelector('.elements__caption');
   const likeButton = element.querySelector('.like-button');
-  likeButton.addEventListener('mousedown', function () {
-    likeButton.classList.toggle('like-button_active'); // функция лайка созданной карточки
-  });
-  function openImage(evt) {
-    openedImage.src = evt.target.getAttribute('src');
-    openedImageCaption.textContent = evt.target.getAttribute('alt');
-    imagePopup.classList.add('photo-card_opened');
-  };
-  function closeImage() {
-    imagePopup.classList.remove('photo-card_opened'); // закрытие развернутого изображения
-  }
-  addEventListener('keydown', function (evt) { // закрытие развернутого изображения на Esc
-    if (evt.key === 'Escape') { 
-      closeImage();
+  const deleteButton = element.querySelector('.delete-button');
+  const likesCount = element.querySelector('.like-count');
+  const ownerId = data.owner._id;
+  imageCaption.textContent = data.name;
+  imageElement.src = data.link;
+  imageElement.alt = data.name;
+  findActiveLikes(data, userId, likeButton)
+  likeButton.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('like-button_active')) {
+      api.deleteLike(data)
+        .then((dataFromServer) => {
+          likeButton.classList.remove('like-button_active');
+          likesCount.textContent = String(dataFromServer.likes.length);
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    } else {
+      api.setLike(data)
+        .then((dataFromServer) => {
+          likeButton.classList.add('like-button_active');
+          likesCount.textContent = String(dataFromServer.likes.length);
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   })
-  const image = element.querySelector('.elements__img');
-  image.addEventListener('click', openImage);
-  closePhotoButton.addEventListener('click', closeImage);
+  likesCount.textContent = String(data.likes.length);
+  if (ownerId === userId) {
+    deleteButton.style.visibility = 'visible';
+    deleteButton.addEventListener("click", function (evt) {
+      api.deleteCard(data._id)
+        .then(() => {
+          evt.target.closest(".elements__item").remove();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  }
+  imageElement.addEventListener('click', () => openImage(data));
   return element;
 };
-// отрисовка карточки в контейнере
-function renderCard(card, container) {
-  container.prepend(card);
+// функция открытия развернутого изображения
+function openImage (data) {
+  openedImage.src = data.link;
+  openedImageCaption.textContent = data.name;
+  openedImage.alt = data.name;
+  openPopup(imagePopup);
 };
-// сабмит формы добавления карточки
-function submitCardForm(evt) {
-  evt.preventDefault();
-  const data = {
-    name: document.querySelector('.form__item_type_photo').value,
-    link: document.querySelector('.form__item_type_link').value
-  };
-  const card = createCard(data);
-  renderCard(card, elementsList);
-  closePopup(addPhotoPopup);
-  formItemPhotoLink.value = '';
-  formItemPhotoCaption.value = '';
+// функция отображения поставленного лайка
+function findActiveLikes(data, userId, likeButton) {
+  data.likes.forEach((like) => {
+    if (like._id === userId) {
+      likeButton.classList.add("like-button_active");
+    }
+  });
 };
-// отрисовка карточек из массива
-function renderFromArray (array) {
-array.forEach(function (item) {
-  const card = createCard(item);
-  renderCard(card, elementsList);
-});
-}
-const openedImage = document.querySelector('.photo-card__image'); // фото полноразмерное
-const openedImageCaption = document.querySelector('.photo-card__caption'); // описание полноращмерного фото
-const elementsList = document.querySelector('.elements');
-const imagePopup = document.querySelector('.photo-card'); // открытое фото
-const closePhotoButton = document.querySelector('.photo__close-button'); // кнопка закрытия биг имейджа
 
-export {createCard, renderCard, initialCards, submitCardForm, renderFromArray };
+export { createCard }
