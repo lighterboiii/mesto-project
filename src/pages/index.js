@@ -3,7 +3,7 @@ import '../pages/index.css';
 import { enableValidation, config } from '../components/validate.js';
 import { createCard } from '../components/card.js';
 import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
-import { getUserInfo, setUserInfo, setAvatar, postCard, getInitialCards, Api } from '../components/Api.js';
+import { Api } from '../components/Api.js';
 import {
   profileAvatar,
   profileName,
@@ -26,9 +26,9 @@ import {
 } from '../components/constants.js';
 
 const api = new Api({
-  baseUrl: 'https://nomoreparties.co/v1/cohort-42',
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-15',
   headers: {
-    authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
+    authorization: '79a19db7-3f97-4425-9bfc-faae1f13f72c',
     'Content-Type': 'application/json'
   }
 });
@@ -51,6 +51,7 @@ api.getAllData()
 // function calls
 enableValidation(config);
 // functions declaring
+
 // функция рендера карточки первой в список
 function renderCard(card, container) {
   container.prepend(card);
@@ -68,7 +69,7 @@ function submitCardForm(evt) {
   evt.preventDefault();
   const submitButton = evt.submitter;
   toggleButtonText(true, submitButton, 'Создать')
-  postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
+  api.postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
     .then((res) => {
       renderOnSubmit(res)
       closePopup(addPhotoPopup);
@@ -86,7 +87,7 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   const submitButton = evt.submitter;
   toggleButtonText(true, submitButton, 'Сохранить')
-  setUserInfo(profileFormNameInput.value, profileFormCaptionInput.value)
+  api.setUserInfo(profileFormNameInput.value, profileFormCaptionInput.value)
     .then(() => {
       setInfo(profileFormNameInput.value, profileFormCaptionInput.value)
       closePopup(profilePopup);
@@ -103,7 +104,7 @@ function submitAvatar(evt) {
   evt.preventDefault();
   const submitButton = evt.submitter;
   toggleButtonText(true, submitButton, 'Сохранить')
-  setAvatar(avatarInput.value)
+  api.setAvatar(avatarInput.value)
     .then((res) => {
       profileAvatar.src = res.avatar
       closePopup(avatarEditPopup);

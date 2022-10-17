@@ -17,7 +17,7 @@ function createCard(data, userId) {
   findActiveLikes(data, userId, likeButton)
   likeButton.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('like-button_active')) {
-      deleteLike(data)
+      api.deleteLike(data)
         .then((dataFromServer) => {
           likeButton.classList.remove('like-button_active');
           likesCount.textContent = String(dataFromServer.likes.length);
@@ -26,7 +26,7 @@ function createCard(data, userId) {
           console.log(err)
         })
     } else {
-      setLike(data)
+      api.setLike(data)
         .then((dataFromServer) => {
           likeButton.classList.add('like-button_active');
           likesCount.textContent = String(dataFromServer.likes.length);
@@ -40,7 +40,7 @@ function createCard(data, userId) {
   if (ownerId === userId) {
     deleteButton.style.visibility = 'visible';
     deleteButton.addEventListener("click", function (evt) {
-      deleteCard(data._id)
+      api.deleteCard(data._id)
         .then(() => {
           evt.target.closest(".elements__item").remove();
         })
