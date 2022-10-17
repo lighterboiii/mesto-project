@@ -1,9 +1,9 @@
 import '../pages/index.css';
 
-import { FormValidation, config } from '../components/validate.js';
+import { FormValidation, config } from '../components/FormValidation.js';
 import { createCard } from '../components/card.js';
 import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
-import { Api } from '../components/Api.js';
+import { Api } from '../components/api.js/index.js';
 import {
   profileAvatar,
   profileName,
