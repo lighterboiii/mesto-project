@@ -32,13 +32,13 @@ export class Api {
       .then(checkResponse)
   };
 
-  postCard(data) {
+  postCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, { // пост карточки через форму
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link
+        name: name,
+        link: link
       })
     })
       .then(checkResponse)
