@@ -1,7 +1,7 @@
 import '../pages/index.css';
 
 import { enableValidation, config } from '../components/validate.js';
-import { createCard } from '../components/card.js';
+import Card from '../components/card.js';
 import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
 import { Api } from '../components/Api.js';
 import {
@@ -22,7 +22,8 @@ import {
   profileFormCaptionInput,
   formItemPhotoCaption,
   formItemPhotoLink,
-  popups
+  popups,
+  optionsCard
 } from '../components/constants.js';
 
 export const api = new Api({
@@ -35,22 +36,50 @@ export const api = new Api({
 // func that get promises from Api for user info and rendered cards
 let userId;
 
+function createCard(data) {
+  const card = new Card(
+    data,
+    optionsCard,
+    {
+      handleCardClick: openImage,
+      handleLikeClick: toggleLikeCard
+    }
+  );
+  // cardSection.addItem(card.createCard());
+}
+function openImage(data) {
+  openedImage.src = data.link;
+  openedImageCaption.textContent = data.name;
+  openedImage.alt = data.name;
+  openPopup(imagePopup);
+}
+function toggleLikeCard() {
+  api.setLike(this.getId(), !this.isLiked())
+    .then(card => {
+      this.setLike(
+        card.likes.find(user => user._id == userInfo.getUserId()) != undefined,
+        card.likes.length,
+      );
+    })
+    .catch(console.log);
+}
+
+
 api.getAllData()
   .then(([userData, cards]) => {
     userId = userData._id;
     profileAvatar.src = userData.avatar;
     setInfo(userData.name, userData.about);
-    cards.forEach((item) => {
-      const card = createCard(item, userId);
-      renderServerCard(card, elementsList);
-    })
+    // cards.forEach((item) => {
+    //   const card = createCard(item, userId);
+    //   renderServerCard(card, elementsList);
+    // })
   })
   .catch((err) => {
     console.log(err);
   });
 // function calls
 enableValidation(config);
-// functions declaring
 
 // функция рендера карточки первой в список
 function renderCard(card, container) {
