@@ -1,6 +1,7 @@
-import { profilePopup, addPhotoPopup, profileName, profileCaption,
-  addCardForm, avatarEditForm, avatarEditPopup, createCardButton, avatarSubmitButton } from './constants.js';
-import { deleteErrorMessages, disableSubmitButton } from '../components/validate.js';
+import {
+  profilePopup, addPhotoPopup, profileName, profileCaption,
+  addCardForm, avatarEditForm, avatarEditPopup, createCardButton, avatarSubmitButton
+} from './constants.js';
 import { getInfo } from '../pages/index.js';
 
 function handleEsc(evt) {
@@ -25,21 +26,24 @@ function closeByOverlay(evt) {
 function openProfile() {
   getInfo(profileName.textContent, profileCaption.textContent)
   openPopup(profilePopup);
-  deleteErrorMessages();
 };
 function openCardPopup() {
   disableSubmitButton(createCardButton);
   addCardForm.reset();
   openPopup(addPhotoPopup);
-  deleteErrorMessages();
 };
 function openAvatarPopup() {
   disableSubmitButton(avatarSubmitButton);
   avatarEditForm.reset();
   openPopup(avatarEditPopup);
-  deleteErrorMessages();
 };
-function toggleButtonText (isLoading, button, originalText) {
+// функция дизейблинга кнопки сабмита формы
+function disableSubmitButton(submitButton) {
+  submitButton.setAttribute('disabled', true);
+  submitButton.classList.add('form__button_inactive');
+};
+// функция переключения текста кнопки при сохранении
+function toggleButtonText(isLoading, button, originalText) {
   if (isLoading) {
     button.textContent = 'Сохранение...'
   } else {
