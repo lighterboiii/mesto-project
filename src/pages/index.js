@@ -3,7 +3,7 @@ import '../pages/index.css';
 import { FormValidation, config } from '../components/FormValidation.js';
 import { createCard } from '../components/card.js';
 import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
-import { Api } from '../components/api.js/index.js';
+import { Api } from '../components/api.js';
 import {
   profileAvatar,
   profileName,
@@ -41,7 +41,7 @@ const formList = Array.from(document.querySelectorAll('.form'));
 formList.forEach(form => {
   setFormValidation(form);
 })
-// func that get promises from Api for user info and rendered cards
+// функция получения данных профиля и карточек с сервера
 let userId;
 
 api.getAllData()
@@ -57,8 +57,6 @@ api.getAllData()
   .catch((err) => {
     console.log(err);
   });
-// function calls
-// enableValidation(config);
 // functions declaring
 
 // функция рендера карточки первой в список
