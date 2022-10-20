@@ -29,13 +29,6 @@ export class FormValidation {
       input.classList.remove(this._config.inputErrorClass);
     })
   };
-  // функция дизейблинга кнопки "Сохранить"
-  // _disableSubmitButton(submitButtonSelector) {
-  //   this._submitButtonSelector = submitButtonSelector;
-
-  //   this._submitButtonSelector.setAttribute('disabled', true);
-  //   this._submitButtonSelector.classList.add(this._config.inactiveButtonClass);
-  // };
   // функция для показа сообщения об ошибке
   _showInputError(input, message, errorElement) {
     input.classList.add(this._config.inputErrorClass);
