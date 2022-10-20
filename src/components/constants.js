@@ -26,16 +26,6 @@ const profilePopup = document.querySelector('.popup__profile'); // модаль�
 const profileSubmitButton = document.querySelector('.profile-submit-button'); // сабмит-кнопка профиля
 const saveButton = document.querySelector('.form__button');
 const popups = document.querySelectorAll('.popup')
-export const optionsCard = {
-  template: '#elements__template',
-  classCard: '.elements__item',
-  likeButton: '.like-button',
-  count: '.like-count',
-  removeButton: '.delete-button',
-  likeButtonActive: 'like-button_active',
-  image: '.elements__image',
-  caption: '.elements__caption',
-};
 
 export {
   profileAvatar,

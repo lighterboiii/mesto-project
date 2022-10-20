@@ -1,8 +1,9 @@
 import '../pages/index.css';
 
 import { enableValidation, config } from '../components/validate.js';
-import Card from '../components/card.js';
-import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
+import {Card, makeNewCard} from '../components/card.js';
+import Section from '../components/Section.js';
+import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText, openPopup } from '../components/modal.js';
 import { Api } from '../components/Api.js';
 import {
   profileAvatar,
@@ -23,7 +24,9 @@ import {
   formItemPhotoCaption,
   formItemPhotoLink,
   popups,
-  optionsCard
+  openedImage,
+  openedImageCaption,
+  imagePopup
 } from '../components/constants.js';
 
 export const api = new Api({
@@ -33,66 +36,118 @@ export const api = new Api({
     'Content-Type': 'application/json'
   }
 });
+
 // func that get promises from Api for user info and rendered cards
+const profile = {
+  data: {},
+  nameNode: document.querySelector(".profile__name"),
+  avatarNode: document.querySelector(".profile__avatar-container"),
+  avatarImageNode: document.querySelector(".avatar"),
+  employmentNode: document.querySelector(".profile__caption"),
+  editButtonNode: document.querySelector(".profile__button"),
+  newItemButtonNode: document.querySelector(".add-button"),
+};
+
 let userId;
-
-function createCard(data) {
-  const card = new Card(
-    data,
-    optionsCard,
-    {
-      handleCardClick: openImage,
-      handleLikeClick: toggleLikeCard
-    }
-  );
-  // cardSection.addItem(card.createCard());
-}
-function openImage(data) {
-  openedImage.src = data.link;
-  openedImageCaption.textContent = data.name;
-  openedImage.alt = data.name;
-  openPopup(imagePopup);
-}
-function toggleLikeCard() {
-  api.setLike(this.getId(), !this.isLiked())
-    .then(card => {
-      this.setLike(
-        card.likes.find(user => user._id == userInfo.getUserId()) != undefined,
-        card.likes.length,
-      );
-    })
-    .catch(console.log);
-}
-
 
 api.getAllData()
   .then(([userData, cards]) => {
     userId = userData._id;
     profileAvatar.src = userData.avatar;
     setInfo(userData.name, userData.about);
-    // cards.forEach((item) => {
-    //   const card = createCard(item, userId);
-    //   renderServerCard(card, elementsList);
-    // })
+    initCards();
   })
   .catch((err) => {
     console.log(err);
   });
+
+  function initCards() {
+    api.getInitialCards().then((cards) => {
+      cards.forEach((card) => {
+        const cardElement = makeNewCard(
+          card,
+          profile.data._id,
+          handleImageClick,
+          handleLikeClick,
+          handleDeleteElement,
+        );
+        elementsList.append(cardElement);
+      });
+    }).catch(err=>{
+      console.error(`Ошибка. ${err}`)
+    });
+  }
+
+
+  function handleImageClick(event) {
+    const currentElement = event.target.closest(".elements__item");
+    if (currentElement != null) {
+      const currentElementImage = currentElement.querySelector(".elements__img");
+      const imageSrc = currentElementImage.src;
+      const imageAlt = currentElementImage.alt;
+      const elementTitle =
+        currentElement.querySelector(".elements__caption").textContent;
+        openedImage.src = imageSrc;
+        openedImage.alt = imageAlt;
+        openedImageCaption.textContent = elementTitle;
+    }
+    openPopup(imagePopup);
+  }
+
+  function handleLikeClick(event) {
+    const currentCard = event.target.closest(".elements__item");
+    if (event.target.classList.contains("like-button_active")) {
+      api.deleteLike(currentCard.dataset.cardId)
+        .then((card) => {
+          currentCard.querySelector(".like-count").textContent =
+            card.likes.length;
+          toggleLike(event);
+        })
+        .catch((err) => {
+          console.error(`Не удалось убрать лайк. ${err}`);
+        });
+    } else {
+      api.setLike(currentCard.dataset.cardId)
+        .then((card) => {
+          currentCard.querySelector(".like-count").textContent =
+            card.likes.length;
+          toggleLike(event);
+        })
+        .catch((err) => {
+          console.error(`Не удалось поставить лайк. ${err}`);
+        });
+    }
+  }
+  
+
+  function toggleLike(event) {
+    event.target.classList.toggle("like-button_active");
+  }
+
+  function handleDeleteElement(event) {
+    const cardElement = event.target.closest(".elements__item");
+    deleteCard(cardElement.dataset.cardId)
+      .then(() => {
+        event.target.closest(".elements__item").remove();
+      })
+      .catch((err) => {
+        console.error(`Не удалось удалить карточку. ${err}`);
+      });
+  }
 // function calls
 enableValidation(config);
 
-// функция рендера карточки первой в список
-function renderCard(card, container) {
-  container.prepend(card);
-};
-// функция для рендера карточек с сервера от старых к новым
-function renderServerCard(card, container) {
-  container.append(card);
-};
+// // функция рендера карточки первой в список
+// function renderCard(card, container) {
+//   container.prepend(card);
+// };
+// // функция для рендера карточек с сервера от старых к новым
+// function renderServerCard(card, container) {
+//   container.append(card);
+// };
 // функция рендера на сабмит формы добавления карточки
 function renderOnSubmit(res) {
-  const card = createCard(res, userId);
-  renderCard(card, elementsList);
+  const card = makeNewCard(res, userId);
 };
 function submitCardForm(evt) {
   evt.preventDefault();
@@ -176,4 +231,6 @@ addCardForm.addEventListener('submit', submitCardForm); // отправка фо
 profileAvatarButton.addEventListener('click', openAvatarPopup); // открыть попап редактирования аватара
 avatarEditPopup.addEventListener('submit', submitAvatar); // сохранение аватарки
 
-export { renderCard, getInfo, setInfo };
+export { getInfo, setInfo };
+
+
