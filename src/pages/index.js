@@ -3,7 +3,7 @@ import '../pages/index.css';
 import { FormValidation, config } from '../components/FormValidation.js';
 import { createCard } from '../components/card.js';
 import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
-import { Api } from '../components/api.js';
+import { Api } from '../components/Api.js';
 import {
   profileAvatar,
   profileName,

@@ -6,20 +6,20 @@ import { getInfo } from '../pages/index.js';
 
 function handleEsc(evt) {
   if (evt.key === 'Escape') {
-    const opened = document.querySelector('.popup_opened');
+    const opened = document.querySelector('.popup_opened'); // в классе
     closePopup(opened);
   }
 };
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened'); // в классе
   window.addEventListener('keydown', handleEsc);
 };
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened'); // в классе
   window.removeEventListener('keydown', handleEsc);
 };
 function closeByOverlay(evt) {
-  if (evt.target.classList.contains('popup')) {
+  if (evt.target.classList.contains('popup')) { // в классе
     closePopup(evt.target);
   }
 };
