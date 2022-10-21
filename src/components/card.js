@@ -30,13 +30,13 @@ export default class Card {
   }
 
   _addHandlerLike(like) {
-    this._handleLikeClick();    
+    this._handleLikeClick();
   }
 
   _addHandlerBtnRemove() {
     this._handleDeleteClick();
   }
-  
+
   deleteCardToPage() {
     this._card.remove();
     this._card = null;
@@ -56,7 +56,7 @@ export default class Card {
   }
 
   setCountLikeToPage(likes) {
-    this._likes = likes; 
+    this._likes = likes;
     this._card.querySelector(".like-count").textContent = likes.length;
   }
 
@@ -91,7 +91,7 @@ export default class Card {
 
     if (this._ownerId === this._userID) {
       this._btnRemove.style.visibility = 'visible';
-      
+
     }
 
     if (this.haveLikeOwner() ) {
