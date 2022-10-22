@@ -2,7 +2,9 @@ import '../pages/index.css';
 
 import { FormValidation, config } from '../components/FormValidation.js';
 import { createCard } from '../components/card.js';
-import { openProfile, closePopup, openCardPopup, openAvatarPopup, toggleButtonText } from '../components/modal.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { openProfile, openAvatarPopup, toggleButtonText } from '../components/modal.js';
 import { Api } from '../components/Api.js';
 import {
   profileAvatar,
@@ -57,7 +59,29 @@ api.getAllData()
   .catch((err) => {
     console.log(err);
   });
-// functions declaring
+// popups
+const popupPhotoSelector = '.photo-card';
+const imagePopup = new PopupWithImage(popupPhotoSelector); // после пулреквеста связать с рендером карточки
+
+const popupWithAddCardSelector = '.popup__add-photo';
+const popupWithAddCardForm = new PopupWithForm(popupWithAddCardSelector, {
+  submit: (data) => {
+    popupWithAddCardForm.toggleButtonText(true);
+    api.postCard(data)
+      .then((res) => {
+        const card = createCard(res);
+        const cardElement = card.createCard();
+        cardsList.addItem(cardElement, 'prepend');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupWithAddCardForm.toggleButtonText(false);
+        popupWithAddCardForm.close()
+      })
+  }
+});
 
 // функция рендера карточки первой в список
 function renderCard(card, container) {
@@ -72,23 +96,23 @@ function renderOnSubmit(res) {
   const card = createCard(res, userId);
   renderCard(card, elementsList);
 };
-function submitCardForm(evt) {
-  evt.preventDefault();
-  const submitButton = evt.submitter;
-  toggleButtonText(true, submitButton, 'Создать')
-  api.postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
-    .then((res) => {
-      renderOnSubmit(res)
-      closePopup(addPhotoPopup);
-      addCardForm.reset();
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-    .finally(() => {
-      toggleButtonText(false, submitButton, 'Создать')
-    })
-};
+// function submitCardForm(evt) {
+//   evt.preventDefault();
+//   const submitButton = evt.submitter;
+//   toggleButtonText(true, submitButton, 'Создать')
+//   api.postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
+//     .then((res) => {
+//       renderOnSubmit(res)
+//       closePopup(addPhotoPopup);
+//       addCardForm.reset();
+//     })
+//     .catch((err) => {
+//       console.log(err)
+//     })
+//     .finally(() => {
+//       toggleButtonText(false, submitButton, 'Создать')
+//     })
+// };
 // функция обновления user info
 function submitProfileForm(evt) {
   evt.preventDefault();
@@ -136,21 +160,23 @@ function setInfo(name, about) {
   profileCaption.textContent = about;
 };
 
-//event listeners
-popups.forEach((popup) => {
-    popup.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup_opened')) {
-            closePopup(popup)
-        }
-        if (evt.target.classList.contains('form__close-button')) {
-          closePopup(popup)
-        }
-    })
-});
+// //event listeners
+// popups.forEach((popup) => {
+//     popup.addEventListener('mousedown', (evt) => {
+//         if (evt.target.classList.contains('popup_opened')) {
+//             closePopup(popup)
+//         }
+//         if (evt.target.classList.contains('form__close-button')) {
+//           closePopup(popup)
+//         }
+//     })
+// });
 openProfilePopupButton.addEventListener('click', openProfile); // открыть форму редактирования профиля
 profilePopup.addEventListener('submit', submitProfileForm); // сабмит окна редактирования профиля
-addPhotoButton.addEventListener('click', openCardPopup); // открытие формы добавления карточки на страницу
-addCardForm.addEventListener('submit', submitCardForm); // отправка формы добавления карточки на страницу
+addPhotoButton.addEventListener('click', () => {
+  popupWithAddCardForm.open()
+}); // открытие формы добавления карточки на страницу
+// addCardForm.addEventListener('submit', submitCardForm); // отправка формы добавления карточки на страницу
 profileAvatarButton.addEventListener('click', openAvatarPopup); // открыть попап редактирования аватара
 avatarEditPopup.addEventListener('submit', submitAvatar); // сохранение аватарки
 

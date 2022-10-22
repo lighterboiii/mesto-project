@@ -1,4 +1,3 @@
-import { openPopup } from "../components/modal.js";
 import { elementsTemplate, openedImage, openedImageCaption, imagePopup } from "./constants.js";
 import { api } from "../pages/index.js";
 
