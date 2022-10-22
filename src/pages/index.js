@@ -130,18 +130,15 @@ function addCardToPage(dataCard) {
 // function calls
 enableValidation(config);
 
-// // функция рендера карточки первой в список
-// function renderCard(card, container) {
-//   container.prepend(card);
-// };
-// // функция для рендера карточек с сервера от старых к новым
-// function renderServerCard(card, container) {
-//   container.append(card);
-// };
+// функция рендера карточки первой в список
+function renderCard(card, container) {
+  container.append(card);
+};
 // функция рендера на сабмит формы добавления карточки
-// function renderOnSubmit(res) {
-//   const card = makeNewCard(res, userId);
-// };
+function renderOnSubmit(data) {
+  const card = addCardToPage(data);
+  renderCard(card, elementsList);
+};
 function submitCardForm(evt) {
   evt.preventDefault();
   const submitButton = evt.submitter;
@@ -149,7 +146,7 @@ function submitCardForm(evt) {
   api
     .postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
     .then((data) => {
-      addCardToPage(data);
+      renderOnSubmit(data);
       closePopup(addPhotoPopup);
       addCardForm.reset();
     })
