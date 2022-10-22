@@ -9,18 +9,12 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/userInfo.js";
 import {
   openProfile,
-  closePopup,
-  openCardPopup,
   openAvatarPopup,
-  toggleButtonText,
-  openPopup,
+  toggleButtonText
 } from "../components/modal.js";
-import { Api } from "../components/api.js";
 import {
-  profileAvatar,
   profileName,
   profileCaption,
-  addCardForm,
   avatarEditForm,
   avatarEditPopup,
   avatarInput,
@@ -29,16 +23,10 @@ import {
   openProfilePopupButton,
   elementsList,
   profilePopup,
-  addPhotoPopup,
   profileFormNameInput,
-  profileFormCaptionInput,
-  formItemPhotoCaption,
-  formItemPhotoLink,
-  popups,
-  openedImage,
-  openedImageCaption,
-  imagePopup,
+  profileFormCaptionInput
 } from "../components/constants.js";
+import { data } from "autoprefixer";
 // import { data } from "autoprefixer";
 
 export const api = new Api({
@@ -77,7 +65,7 @@ api
     console.log(err);
   });
 // popups
-const popupPhotoSelector = '.photo-card';
+const popupPhotoSelector = '.photo-card__image';
 const imagePopup = new PopupWithImage(popupPhotoSelector); // после пулреквеста связать с рендером карточки
 
 const popupWithAddCardSelector = '.popup__add-photo';

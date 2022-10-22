@@ -1,5 +1,3 @@
-import {api} from '../pages/index'
-
 export default class Card {
   constructor(data, userID, { handleClickImage, handleDeleteClick, handleLikeClick }, cardTemplate) {
     this._name = data.name;
