@@ -1,5 +1,8 @@
 import "../pages/index.css";
 
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { Api } from '../components/Api.js';
 import { FormValidation, config } from "../components/FormValidation.js";
 import Card from "../components/card.js";
 import Section from "../components/Section.js";
@@ -73,6 +76,29 @@ api
   .catch((err) => {
     console.log(err);
   });
+// popups
+const popupPhotoSelector = '.photo-card';
+const imagePopup = new PopupWithImage(popupPhotoSelector); // после пулреквеста связать с рендером карточки
+
+const popupWithAddCardSelector = '.popup__add-photo';
+const popupWithAddCardForm = new PopupWithForm(popupWithAddCardSelector, {
+  submit: (data) => {
+    popupWithAddCardForm.toggleButtonText(true);
+    api.postCard(data)
+      .then((res) => {
+        const card = createCard(res);
+        const cardElement = card.createCard();
+        cardsList.addItem(cardElement, 'prepend');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupWithAddCardForm.toggleButtonText(false);
+        popupWithAddCardForm.close()
+      })
+  }
+});
 
 const cardsList = new Section(
   {
@@ -132,7 +158,7 @@ function addCardToPage(dataCard) {
   );
   const cardNode = card.createCard();
   cardsList.addItem(cardNode);
-}
+};
 
 // функция рендера карточки первой в список
 function renderCard(card, container) {
@@ -143,24 +169,24 @@ function renderOnSubmit(data) {
   const card = addCardToPage(data);
   renderCard(card, elementsList);
 };
-function submitCardForm(evt) {
-  evt.preventDefault();
-  const submitButton = evt.submitter;
-  toggleButtonText(true, submitButton, "Создать");
-  api
-    .postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
-    .then((data) => {
-      renderOnSubmit(data);
-      closePopup(addPhotoPopup);
-      addCardForm.reset();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      toggleButtonText(false, submitButton, "Создать");
-    });
-}
+// function submitCardForm(evt) {
+//   evt.preventDefault();
+//   const submitButton = evt.submitter;
+//   toggleButtonText(true, submitButton, 'Создать')
+//   api.postCard(formItemPhotoCaption.value, formItemPhotoLink.value)
+//     .then((res) => {
+//       renderOnSubmit(res)
+//       closePopup(addPhotoPopup);
+//       addCardForm.reset();
+//     })
+//     .catch((err) => {
+//       console.log(err)
+//     })
+//     .finally(() => {
+//       toggleButtonText(false, submitButton, 'Создать')
+//     })
+// };
+
 // функция обновления user info
 function submitProfileForm(evt) {
   evt.preventDefault();
@@ -197,7 +223,7 @@ function submitAvatar(evt) {
     .finally(() => {
       toggleButtonText(false, submitButton, "Сохранить");
     });
-}
+};
 // get info from inputs
 function getInfo(name, about) {
   profileFormNameInput.value = name;
@@ -209,22 +235,24 @@ function setInfo(name, about) {
   profileCaption.textContent = about;
 }
 
-//event listeners
-popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(popup);
-    }
-    if (evt.target.classList.contains("form__close-button")) {
-      closePopup(popup);
-    }
-  });
-});
-openProfilePopupButton.addEventListener("click", openProfile); // открыть форму редактирования профиля
-profilePopup.addEventListener("submit", submitProfileForm); // сабмит окна редактирования профиля
-addPhotoButton.addEventListener("click", openCardPopup); // открытие формы добавления карточки на страницу
-addCardForm.addEventListener("submit", submitCardForm); // отправка формы добавления карточки на страницу
-profileAvatarButton.addEventListener("click", openAvatarPopup); // открыть попап редактирования аватара
-avatarEditPopup.addEventListener("submit", submitAvatar); // сохранение аватарки
+// //event listeners
+// popups.forEach((popup) => {
+//     popup.addEventListener('mousedown', (evt) => {
+//         if (evt.target.classList.contains('popup_opened')) {
+//             closePopup(popup)
+//         }
+//         if (evt.target.classList.contains('form__close-button')) {
+//           closePopup(popup)
+//         }
+//     })
+// });
+openProfilePopupButton.addEventListener('click', openProfile); // открыть форму редактирования профиля
+profilePopup.addEventListener('submit', submitProfileForm); // сабмит окна редактирования профиля
+addPhotoButton.addEventListener('click', () => {
+  popupWithAddCardForm.open()
+}); // открытие формы добавления карточки на страницу
+// addCardForm.addEventListener('submit', submitCardForm); // отправка формы добавления карточки на страницу
+profileAvatarButton.addEventListener('click', openAvatarPopup); // открыть попап редактирования аватара
+avatarEditPopup.addEventListener('submit', submitAvatar); // сохранение аватарки
 
 export { getInfo, setInfo };

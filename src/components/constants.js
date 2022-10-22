@@ -2,7 +2,6 @@
 const addCardForm = document.forms['card-form']; // форма создания карточки
 const addPhotoButton = document.querySelector('.add-button')  // кнопка открытия окна добавления карточки
 const addPhotoPopup = document.querySelector('.popup__add-photo');
-const areUSurePopup = document.querySelector('.popup__delete'); // попап подтверждения удаления карточки
 const avatarEditForm = document.forms['avatar-form'] // форма изменения аватара
 const avatarEditPopup = document.querySelector('.popup__avatar'); // окнр изменения аватара
 const avatarInput = document.querySelector('.form__item-avatar'); // поле ввода формы изм-я аватара
@@ -53,6 +52,5 @@ export {
   profileSubmitButton,
   createCardButton,
   avatarSubmitButton,
-  areUSurePopup,
   popups
 };
