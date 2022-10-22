@@ -3,7 +3,7 @@ import "../pages/index.css";
 import { FormValidation, config } from "../components/FormValidation.js";
 import Card from "../components/card.js";
 import Section from "../components/Section.js";
-import UserInfo from "../components/userInfo";
+import UserInfo from "../components/userInfo.js";
 import {
   openProfile,
   closePopup,
@@ -133,9 +133,6 @@ function addCardToPage(dataCard) {
   const cardNode = card.createCard();
   cardsList.addItem(cardNode);
 }
-
-// function calls
-enableValidation(config);
 
 // функция рендера карточки первой в список
 function renderCard(card, container) {
