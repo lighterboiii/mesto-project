@@ -60,7 +60,7 @@ export default class Card {
     this._card.querySelector(".like-count").textContent = likes.length;
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     const like = this._card.querySelector(".like-button");
     const image = this._card.querySelector(".elements__img");
 
@@ -91,14 +91,13 @@ export default class Card {
 
     if (this._ownerId === this._userID) {
       this._btnRemove.style.visibility = 'visible';
-
     }
 
     if (this.haveLikeOwner() ) {
       this.setStateLike();
     }
 
-    this._setEventListeners();
+    this.setEventListeners();
 
     return this._card;
   }

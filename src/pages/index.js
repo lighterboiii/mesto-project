@@ -46,7 +46,6 @@ export const api = new Api({
   },
 });
 
-
 // func that get promises from Api for user info and rendered cards
 
 let userId;
@@ -76,6 +75,16 @@ const cardsList = new Section(
   },
   ".elements"
 );
+function handleDeleteClick(card) {
+  api
+    .deleteCard(card._id)
+    .then(() => {
+      card.deleteCardToPage();
+    })
+    .catch((err) => {
+      console.log(`${err}`);
+    });
+}
 
 function addCardToPage(dataCard) {
   const card = new Card(
@@ -87,16 +96,7 @@ function addCardToPage(dataCard) {
         imagePopup.setEventListeners();
         imagePopup.open(cardInfo);
       },
-      handleDeleteClick: () => {
-        api.deleteCard(data)
-        .then(() => {
-          card.deleteCardToPage(data._id);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        
-    },
+      handleDeleteClick: () => handleDeleteClick(card),
       handleLikeClick: () => {
         if (card.haveLikeOwner()) {
           api
