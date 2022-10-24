@@ -15,7 +15,6 @@ export const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
 api
   .getAllData()
   .then((values) => {
@@ -35,6 +34,7 @@ const cardsList = new Section(
   },
   ".elements"
 );
+
 function handleDeleteClick(card) {
   api
     .deleteCard(card._id)
@@ -112,9 +112,9 @@ const popupWithAddCardForm = new PopupWithForm(popupWithAddCardSelector, {
     popupWithAddCardForm.toggleButtonText(true);
     api.postCard(data)
       .then((res) => {
-        const card = createCard(res);
-        const cardElement = card.createCard();
-        cardsList.addItem(cardElement, 'prepend');
+        // const card = addCardToPage(res);
+        // const cardElement = card.createCard();
+        // cardsList.addItem(cardElement);
       })
       .catch((err) => {
         console.log(err);
