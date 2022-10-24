@@ -66,7 +66,7 @@ function addCardToPage(dataCard) {
               card.setStateLike();
             })
             .catch((err) => {
-              setErrorServer(err);
+              console.log(err);
             });
         } else {
           api
@@ -76,7 +76,7 @@ function addCardToPage(dataCard) {
               card.setStateLike();
             })
             .catch((err) => {
-              setErrorServer(err);
+              console.log(err);
             });
         }
       },
@@ -112,9 +112,8 @@ const popupWithAddCardForm = new PopupWithForm(popupWithAddCardSelector, {
     popupWithAddCardForm.toggleButtonText(true);
     api.postCard(data)
       .then((res) => {
-        // const card = addCardToPage(res);
-        // const cardElement = card.createCard();
-        // cardsList.addItem(cardElement);
+        const cardElement = addCardToPage();
+        cardsList.addItem(cardElement);
       })
       .catch((err) => {
         console.log(err);

@@ -26,7 +26,7 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.caption
+        about: data.activity
       })
     })
       .then(checkResponse)
@@ -60,7 +60,7 @@ export class Api {
       .then(checkResponse)
   };
 
-  setAvatar (data) {
+  setAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, { // отправка аватара на сервер (в классе)
       method: 'PATCH',
       headers: this._headers,
