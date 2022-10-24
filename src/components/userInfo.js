@@ -1,29 +1,29 @@
 export default class UserInfo {
-  constructor(profileName, profileInterst, profileAvatar) {
-    this._profileName = document.querySelector(profileName);
-    this._profileInterst = document.querySelector(profileInterst);
-    this._profileAvatar = document.querySelector(profileAvatar);
+  constructor(userName, userCaption, userAvatar) {
+    this._userName = userName;
+    this._userCaption = userCaption;
+    this._userAvatar = userAvatar;
+    this._name = document.querySelector(this._userName);
+    this._caption = document.querySelector(this._userCaption);
+    this._avatar = document.querySelector(this._userAvatar)
   }
 
-  //получить данные со страницы
   getUserInfo() {
-    const name = this._profileName.textContent;
-    const interst = this._profileInterst.textContent;
-    return { name, interst };
+    const data = {
+      name: this._name.textContent,
+      about: this._caption.textContent
+    };
+    return data;
   }
-  //установить данные на страницу
-  setUserInfo({ name, about, avatar, _id }) {
-    this.id = _id;
-    if (avatar) {
-      this._profileAvatar.style.backgroundImage = `url("${avatar}")`;
-    }
 
-    if (name) {
-      this._profileName.textContent = name;
-    }
+  setUserAvatar(data) {
+    this._avatar.src = data.avatar;
+  }
 
-    if (about) {
-      this._profileInterst.textContent = about;
-    }
+  setUserInfo(data) {
+    this._name.textContent = data.name;
+    this._caption.textContent = data.about;
+    this.setUserAvatar(data);
+    this._avatar.alt = `${data.name}`;
   }
 };

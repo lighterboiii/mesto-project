@@ -20,25 +20,25 @@ export class Api {
       .then(checkResponse)
   };
 
-  setUserInfo(name, caption) {
+  setUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, { // отправка информации пользователя на сервер
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        about: caption
+        name: data.name,
+        about: data.caption
       })
     })
       .then(checkResponse)
   };
 
-  postCard(name, link) {
+  postCard(data) {
     return fetch(`${this._baseUrl}/cards`, { // пост карточки через форму
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        link: link
+        name: data.name,
+        link: data.link
       })
     })
       .then(checkResponse)
@@ -60,12 +60,12 @@ export class Api {
       .then(checkResponse)
   };
 
-  setAvatar (avatar) {
+  setAvatar (data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, { // отправка аватара на сервер (в классе)
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar
+        avatar: data.avatar
       })
     })
       .then(checkResponse)

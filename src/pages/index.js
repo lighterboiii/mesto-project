@@ -100,7 +100,7 @@ formList.forEach(form => {
 const userInfo = new UserInfo(
   ".profile__name",
   ".profile__caption",
-  ".profile__avatar-container"
+  ".profile__avatar"
 );
 
 const popupPhotoSelector = '.photo-card';
