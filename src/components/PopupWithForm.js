@@ -1,16 +1,16 @@
 import { Popup } from '../components/Popup.js';
 
 export class PopupWithForm extends Popup {
-  constructor(popupSelector, { submitForm }) {
+  constructor(popupSelector, { submit }) {
     super(popupSelector);
     this._form = this._popup.querySelector('.form');
-    this._submitForm = submitForm;
+    this._submit = submit;
     this._submitButton = this._form.querySelector('.form__button');
     this._originalText = this._submitButton.textContent;
     this._submitHandler = this._submitHandler.bind(this);
   }
 
-  renderLoading(isLoading, buttonLoadingText = 'Cохранение...') {
+  toggleButtonText(isLoading, buttonLoadingText = 'Cохранение...') {
     if (isLoading) {
       this._submitButton.textContent = buttonLoadingText;
     } else {
@@ -20,12 +20,12 @@ export class PopupWithForm extends Popup {
 
   _submitHandler(evt) {
     evt.preventDefault();
-    this._submitForm(this._getInputValues());
+    this._submit(this._getInputValues());
   }
 
   _getInputValues() {
     const inputsList = Array.from(this._form.querySelectorAll('.form__item'));
-    const data = { };
+    const data = {};
     inputsList.forEach(input => {
       data[input.name] = input.value;
     })
