@@ -11,7 +11,6 @@ export default class UserInfo {
     const interst = this._profileInterst.textContent;
     return { name, interst };
   }
-
   //установить данные на страницу
   setUserInfo({ name, about, avatar, _id }) {
     this.id = _id;
