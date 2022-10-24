@@ -42,7 +42,7 @@ function handleDeleteClick(card) {
       card.deleteCardToPage();
     })
     .catch((err) => {
-      console.log(`${err}`);
+      console.log(err);
     });
 };
 
@@ -112,8 +112,7 @@ const popupWithAddCardForm = new PopupWithForm(popupWithAddCardSelector, {
     popupWithAddCardForm.toggleButtonText(true);
     api.postCard(data)
       .then((res) => {
-        const cardElement = addCardToPage();
-        cardsList.addItem(cardElement);
+        const cardElement = addCardToPage(res);
       })
       .catch((err) => {
         console.log(err);
