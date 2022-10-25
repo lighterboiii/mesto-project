@@ -15,6 +15,8 @@ export const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
+const elementsSelector = '.elements';
 api
   .getAllData()
   .then((values) => {
@@ -32,7 +34,7 @@ const cardsList = new Section(
       addCardToPage(card);
     },
   },
-  ".elements"
+  elementsSelector
 );
 
 function handleDeleteClick(card) {
@@ -46,6 +48,7 @@ function handleDeleteClick(card) {
     });
 };
 
+const elementsTemplateSelector = '#elements__template';
 function addCardToPage(dataCard) {
   const card = new Card(
     dataCard,
@@ -81,7 +84,7 @@ function addCardToPage(dataCard) {
         }
       },
     },
-    "#elements__template"
+    elementsTemplateSelector
   );
   const cardNode = card.createCard();
   cardsList.addItem(cardNode);
@@ -92,15 +95,19 @@ const setFormValidation = (formElement) => {
   formValidation.enableValidation();
 };
 
-const formList = Array.from(document.querySelectorAll('.form'));
+
+const formList = Array.from(document.querySelectorAll(config.formSelector));
 formList.forEach(form => {
   setFormValidation(form);
 });
 
+const profileNameSelector = '.profile__name';
+const profileCaptionSelector = '.profile__caption';
+const profileAvatarSelector = '.profile__avatar';
 const userInfo = new UserInfo(
-  ".profile__name",
-  ".profile__caption",
-  ".profile__avatar"
+  profileNameSelector,
+  profileCaptionSelector,
+  profileAvatarSelector
 );
 
 const popupPhotoSelector = '.photo-card';
@@ -160,6 +167,13 @@ const popupWithAvatarForm = new PopupWithForm(popupAvatarSelector, {
   }
 });
 
+// функция дизейблинга кнопки сабмита формы (не понял пока, оставлять или убирать)
+// function disableSubmitButton(submitButton) {
+//   submitButton.setAttribute('disabled', true);
+//   submitButton.classList.add('form__button_inactive');
+// };
+
+// constants
 const profileFormCaptionInput = document.querySelector('.form__item_type_job');
 const profileFormNameInput = document.querySelector('.form__item_type_name');
 const openProfilePopupButton = document.querySelector('.profile__button'); // кнопка открытия модального окна редактирования профиля
