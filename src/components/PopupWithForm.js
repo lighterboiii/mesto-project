@@ -21,7 +21,6 @@ export class PopupWithForm extends Popup {
   _getInputValues() {
     const inputsList = Array.from(this._form.querySelectorAll('.form__item'));
     const data = {};
-    console.log(data);
     inputsList.forEach(input => {
       data[input.name] = input.value;
     })

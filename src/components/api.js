@@ -1,23 +1,29 @@
-import { checkResponse } from "./utils.js";
-
 export class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
-  }
+  };
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  };
+
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {  // рендер карточек с сервера
       headers: this._headers
     })
-      .then(checkResponse)
+      .then(this._checkResponse)
   };
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {  // получение информации пользователя
       headers: this._headers
     })
-      .then(checkResponse)
+      .then(this._checkResponse)
   };
 
   setUserInfo(data) {
@@ -29,7 +35,7 @@ export class Api {
         about: data.activity
       })
     })
-      .then(checkResponse)
+      .then(this._checkResponse)
   };
 
   postCard(data) {
@@ -41,7 +47,7 @@ export class Api {
         link: data.link
       })
     })
-      .then(checkResponse)
+      .then(this._checkResponse)
   };
 
   setLike(data) { // постановка лайка
@@ -49,7 +55,7 @@ export class Api {
       method: 'PUT',
       headers: this._headers
     })
-      .then(checkResponse)
+      .then(this._checkResponse)
   };
 
   deleteLike(data) {  // снятие лайка
@@ -57,7 +63,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(checkResponse)
+      .then(this._checkResponse)
   };
 
   setAvatar(data) {
@@ -68,7 +74,7 @@ export class Api {
         avatar: data.avatar
       })
     })
-      .then(checkResponse)
+      .then(this._checkResponse)
   };
 
   deleteCard(data) {
@@ -76,7 +82,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(checkResponse)
+      .then(this._checkResponse)
   };
 
   getAllData() {
