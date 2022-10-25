@@ -119,14 +119,15 @@ const popupWithAddCardForm = new PopupWithForm(popupWithAddCardSelector, {
     popupWithAddCardForm.toggleButtonText(true);
     api.postCard(data)
       .then((res) => {
-        const cardElement = addCardToPage(res);
+        addCardToPage(res);
+        popupWithAddCardForm.close()
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupWithAddCardForm.toggleButtonText(false);
-        popupWithAddCardForm.close()
+
       })
   }
 });
@@ -138,13 +139,13 @@ const popupWithProfileInfo = new PopupWithForm(popupWithProfileSelector, {
     api.setUserInfo(data)
       .then((res) => {
         userInfo.setUserInfo(res);
+        popupWithProfileInfo.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupWithProfileInfo.toggleButtonText(false);
-        popupWithProfileInfo.close();
       })
   }
 });
@@ -156,22 +157,16 @@ const popupWithAvatarForm = new PopupWithForm(popupAvatarSelector, {
     api.setAvatar(data)
       .then((res) => {
         userInfo.setAvatar(res);
+        popupWithAvatarForm.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupWithAvatarForm.toggleButtonText(false);
-        popupWithAvatarForm.close();
       })
   }
 });
-
-// функция дизейблинга кнопки сабмита формы (не понял пока, оставлять или убирать)
-// function disableSubmitButton(submitButton) {
-//   submitButton.setAttribute('disabled', true);
-//   submitButton.classList.add('form__button_inactive');
-// };
 
 // constants
 const profileFormCaptionInput = document.querySelector('.form__item_type_job');
