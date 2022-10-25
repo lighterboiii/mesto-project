@@ -27,7 +27,7 @@ export default class Card {
     return { name, link };
   }
 
-  _addHandlerLike(like) {
+  _addHandlerLike() {
     this._handleLikeClick();
   }
 
