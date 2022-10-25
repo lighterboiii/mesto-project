@@ -21,11 +21,11 @@
         </div>
         <div class="profile__info">
           <div class="profile__row">
-            <p class="profile__name">Вячеслав Баумтрок</p>
+            <p class="profile__name"></p>
             <button class="profile__button" type="button"></button>
           </div>
           <div class="profile__row">
-            <p class="profile__caption">Веб-разработчик</p>
+            <p class="profile__caption"></p>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
       <form class="form card-form" name="card-form" id="card-form" novalidate>
         <fieldset class="form__fieldset">
           <label for="name" class="form__field">
-            <input class="form__item form__item_type_photo" type="text" id="name" name="photo-name"
+            <input class="form__item form__item_type_photo" type="text" id="name" name="name"
               placeholder="Название" required minlength="2" maxlength="30" pattern="^[а-яА-ЯёЁa-zA-Z\s-]+$"
               data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
             <span class="form__item-error name-error"></span>
@@ -90,7 +90,7 @@
       <form class="form avatar-form" name="avatar-form" id="avatar-form" novalidate>
         <fieldset class="form__fieldset">
           <label for="name" class="form__field">
-            <input class="form__item form__item-avatar" type="text" id="name" name="avatar-link"
+            <input class="form__item form__item-avatar" type="url" id="name" name="avatar"
               placeholder="Ссылка на картинку" required
               pattern="^(?:(?:https?|HTTPS?|ftp|FTP):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)*)(?::\d{2,})?(?:[\/?#]\S*)?$"
               data-error-message="Вставьте ссылку на картинку">

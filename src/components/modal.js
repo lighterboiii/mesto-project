@@ -1,54 +1,6 @@
-import {
-  profilePopup, addPhotoPopup, profileName, profileCaption,
-  addCardForm, avatarEditForm, avatarEditPopup, createCardButton, avatarSubmitButton
-} from './constants.js';
-import { getInfo } from '../pages/index.js';
 
-function handleEsc(evt) {
-  if (evt.key === 'Escape') {
-    const opened = document.querySelector('.popup_opened'); // в классе
-    closePopup(opened);
-  }
-};
-// function openPopup(popup) {
-//   popup.classList.add('popup_opened'); // в классе
-//   window.addEventListener('keydown', handleEsc);
-// };
-// function closePopup(popup) {
-//   popup.classList.remove('popup_opened'); // в классе
-//   window.removeEventListener('keydown', handleEsc);
-// // };
-// function closeByOverlay(evt) {
-//   if (evt.target.classList.contains('popup')) { // в классе
-//     closePopup(evt.target);
-//   }
-// };
-function openProfile() {
-  getInfo(profileName.textContent, profileCaption.textContent)
-  openPopup(profilePopup);
-};
-function openCardPopup() {
-  disableSubmitButton(createCardButton);
-  addCardForm.reset();
-  openPopup(addPhotoPopup);
-};
-function openAvatarPopup() {
-  disableSubmitButton(avatarSubmitButton);
-  avatarEditForm.reset();
-  openPopup(avatarEditPopup);
-};
-// функция дизейблинга кнопки сабмита формы
+// функция дизейблинга кнопки сабмита формы (перенести методом в попапы)
 function disableSubmitButton(submitButton) {
   submitButton.setAttribute('disabled', true);
   submitButton.classList.add('form__button_inactive');
 };
-// функция переключения текста кнопки при сохранении
-function toggleButtonText(isLoading, button, originalText) {
-  if (isLoading) {
-    button.textContent = 'Сохранение...'
-  } else {
-    button.textContent = originalText;
-  }
-};
-
-export { openProfile, openCardPopup, openAvatarPopup, toggleButtonText };

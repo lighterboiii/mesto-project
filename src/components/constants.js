@@ -9,8 +9,6 @@ const avatarSubmitButton = document.querySelector('.avatar-button'); // сабм
 const createCardButton = document.querySelector('.create-card-button'); // кнопка сабмита карточки
 const elementsList = document.querySelector('.elements');
 const elementsTemplate = document.querySelector('#elements__template').content;
-const formItemPhotoCaption = document.querySelector('.form__item_type_photo'); // инпут с подписью к фотоs
-const formItemPhotoLink = document.querySelector('.form__item_type_link');
 const imagePopup = document.querySelector('.photo-card'); // открытое фото
 const openedImage = document.querySelector('.photo-card__image'); // фото полноразмерное
 const openedImageCaption = document.querySelector('.photo-card__caption'); // описание полноразмерного фото
@@ -23,8 +21,6 @@ const profileFormNameInput = document.querySelector('.form__item_type_name');
 const profileName = document.querySelector('.profile__name');
 const profilePopup = document.querySelector('.popup__profile'); // модальное окно редактирования профиля
 const profileSubmitButton = document.querySelector('.profile-submit-button'); // сабмит-кнопка профиля
-const saveButton = document.querySelector('.form__button');
-const popups = document.querySelectorAll('.popup')
 
 export {
   profileAvatar,

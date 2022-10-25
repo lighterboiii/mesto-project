@@ -7,10 +7,12 @@ export class Popup {
   }
 
   open() {
+    this.setEventListeners();
     this._popup.classList.add('popup_opened');
   }
 
   close() {
+    this._removeEventListeners();
     this._popup.classList.remove('popup_opened');
   }
 
@@ -20,7 +22,7 @@ export class Popup {
     }
   }
 
-  _handleEscClose() {
+  _handleEscClose(evt) {
     if (evt.key === 'Escape') {
       this.close();
     }

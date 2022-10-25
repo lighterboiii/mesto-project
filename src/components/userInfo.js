@@ -1,52 +1,31 @@
 export default class UserInfo {
-  constructor(profileName, profileInterst, profileAvatar) {
-    this._profileName = document.querySelector(profileName);
-    this._profileInterst = document.querySelector(profileInterst);
-    this._profileAvatar = document.querySelector(profileAvatar);
+  constructor(userName, userCaption, userAvatar) {
+    this._userName = userName;
+    this._userCaption = userCaption;
+    this._userAvatar = userAvatar;
+    this._name = document.querySelector(this._userName);
+    this._caption = document.querySelector(this._userCaption);
+    this._avatar = document.querySelector(this._userAvatar)
   }
 
-  //получить данные со страницы
   getUserInfo() {
-    const name = this._profileName.textContent;
-    const interst = this._profileInterst.textContent;
-    return { name, interst };
+    const data = {
+      name: this._name.textContent,
+      about: this._caption.textContent
+    };
+    return data
   }
 
-  //установить данные на страницу
-  setUserInfo({ name, about, avatar, _id }) {
-    this.id = _id;
-    // Так как при редактировании профиля аватар не ставится, то проверка
-    if (avatar) {
-      this._profileAvatar.style.backgroundImage = `url("${avatar}")`;
-    }
-
-    if (name) {
-      this._profileName.textContent = name;
-    }
-
-    if (about) {
-      this._profileInterst.textContent = about;
-    }
+  setAvatar(data) {
+    this._avatar.src = data.avatar;
+    console.log(data);
   }
-}
 
-
-// export class UserInfo {
-//   constructor(userNameSelector, userCaptionSelector) {
-//     this._userName = userNameSelector;
-//     this._userCaption = userCaptionSelector;
-//   }
-
-//   getUserInfo() {
-//     const userData = {
-//       name: this._userName,
-//       caption: this._userCaption
-//     };
-//     return userData;
-//   }
-
-//   setUserInfo(userData) {
-//     this._userName.textContent = userData.name;
-//     this._userCaption = userData.caption;
-//   }
-// };
+  setUserInfo(data) {
+    this.id = data._id;
+    this._name.textContent = data.name;
+    this._caption.textContent = data.about;
+    this.setAvatar(data);
+    this._avatar.alt = `${data.name}`;
+  }
+};
