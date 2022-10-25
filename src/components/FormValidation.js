@@ -44,6 +44,12 @@ export class FormValidation {
   // функция для проверки валидности инпута и показе стандартного сообщения об ошибке для невалидного поля ввода
   _checkInputValidity(input) {
     const errorElement = this._getErrorMessage(input);
+    if (input.validity.patternMismatch) {
+      input.setCustomValidity(input.dataset.errorMessage);
+    } else {
+      input.setCustomValidity("");
+    }
+    
     if (!input.validity.valid) {
       this._showInputError(input, input.validationMessage, errorElement);
     } else {
@@ -85,6 +91,6 @@ export class FormValidation {
   };
   // поиск всех форм в документе, отмена для каждой стандартного поведения и добавление слушателей событий на все формы
   enableValidation() {
-      this._addEventListeners(this._formElement, config);
+      this._addEventListeners(this._formElement, this._config);
   };
 };
