@@ -29,12 +29,12 @@ export class Popup {
   }
 
   setEventListeners() {
-    this._popup.addEventListener('click', this._handleClose);
+    this._popup.addEventListener('mousedown', this._handleClose);
     document.addEventListener('keydown', this._handleEscClose);
   }
 
   _removeEventListeners() {
-    this._popup.removeEventListener('click', this._handleClose);
+    this._popup.removeEventListener('mousedown', this._handleClose);
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
