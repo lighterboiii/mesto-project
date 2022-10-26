@@ -49,7 +49,7 @@ export class FormValidation {
     } else {
       input.setCustomValidity("");
     }
-    
+
     if (!input.validity.valid) {
       this._showInputError(input, input.validationMessage, errorElement);
     } else {
@@ -91,6 +91,6 @@ export class FormValidation {
   };
   // поиск всех форм в документе, отмена для каждой стандартного поведения и добавление слушателей событий на все формы
   enableValidation() {
-      this._addEventListeners(this._formElement, this._config);
+      this._addEventListeners(this._formElement);
   };
 };
