@@ -27,11 +27,6 @@ export class PopupWithForm extends Popup {
     return data;
   }
 
-  _disableSubmitButton() {
-      this._submitButton.setAttribute('disabled', true);
-      this._submitButton.classList.add('form__button_inactive');
-    };
-
   _submitHandler(evt) {
     evt.preventDefault();
     this._submit(this._getInputValues());
@@ -42,10 +37,13 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
   }
 
+  _removeEventListeners() {
+    this._form.removeEventListener('submit', this._submitHandler);
+  }
+
   close() {
     this._form.reset();
-    this._form.removeEventListener('submit', this._submitHandler);
-    this._disableSubmitButton();
+    this._removeEventListeners();
     super.close();
   }
 }

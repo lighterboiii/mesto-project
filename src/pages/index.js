@@ -90,17 +90,6 @@ function addCardToPage(dataCard) {
   cardsList.addItem(cardNode);
 };
 
-const setFormValidation = (formElement) => {
-  const formValidation = new FormValidation(formElement, config);
-  formValidation.enableValidation();
-};
-
-
-const formList = Array.from(document.querySelectorAll(config.formSelector));
-formList.forEach(form => {
-  setFormValidation(form);
-});
-
 const profileNameSelector = '.profile__name';
 const profileCaptionSelector = '.profile__caption';
 const profileAvatarSelector = '.profile__avatar';
@@ -119,7 +108,7 @@ const popupWithAddCardForm = new PopupWithForm(popupWithAddCardSelector, {
     popupWithAddCardForm.toggleButtonText(true);
     api.postCard(data)
       .then((res) => {
-        const cardElement = addCardToPage(res);
+        addCardToPage(res);
       })
       .catch((err) => {
         console.log(err);
@@ -166,19 +155,22 @@ const popupWithAvatarForm = new PopupWithForm(popupAvatarSelector, {
       })
   }
 });
-
-// функция дизейблинга кнопки сабмита формы (не понял пока, оставлять или убирать)
-// function disableSubmitButton(submitButton) {
-//   submitButton.setAttribute('disabled', true);
-//   submitButton.classList.add('form__button_inactive');
-// };
-
 // constants
+const addCardForm = document.querySelector('.card-form');
+const avatarForm = document.querySelector('.avatar-form');
+const profileForm = document.querySelector('.profile-form');
 const profileFormCaptionInput = document.querySelector('.form__item_type_job');
 const profileFormNameInput = document.querySelector('.form__item_type_name');
 const openProfilePopupButton = document.querySelector('.profile__button'); // кнопка открытия модального окна редактирования профиля
 const profileAvatarButton = document.querySelector('.profile__avatar-button'); // кнопка октрытия попапа аватарки
 const openAddPhotoPopupButton = document.querySelector('.add-button')  // кнопка открытия окна добавления карточки
+// formvalidation
+const addCardFormValidation = new FormValidation(addCardForm, config);
+addCardFormValidation.enableValidation();
+const changeAvatarFormValidation = new FormValidation(avatarForm, config);
+changeAvatarFormValidation.enableValidation();
+const profileFormValidation = new FormValidation(profileForm, config);
+profileFormValidation.enableValidation();
 // eventlisteners
 openProfilePopupButton.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
@@ -187,8 +179,10 @@ openProfilePopupButton.addEventListener('click', () => {
   popupWithProfileInfo.open();
 });
 openAddPhotoPopupButton.addEventListener('click', () => {
+  addCardFormValidation.disableSubmitButton();
   popupWithAddCardForm.open()
 });
 profileAvatarButton.addEventListener('click', () => {
+  changeAvatarFormValidation.disableSubmitButton();
   popupWithAvatarForm.open();
 });

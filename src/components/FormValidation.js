@@ -18,25 +18,16 @@ export class FormValidation {
   _getErrorMessage(input) {
     return this._formElement.querySelector(`.${input.id}-error`);
   };
-
-  _deleteErrorMessages() {
-    const errorMessages = Array.from(this._formSelector.querySelectorAll(this._config.formItemError));
-    const errorBorders = Array.from(this._formSelector.querySelectorAll(this._config.inputSelector));
-    errorMessages.forEach((message) => {
-      message.textContent = '';
-    })
-    errorBorders.forEach((input) => {
-      input.classList.remove(this._config.inputErrorClass);
-    })
-  };
   // функция для показа сообщения об ошибке
-  _showInputError(input, message, errorElement) {
+  _showInputError(input, message) {
+    const errorElement = this._getErrorMessage(input);
     input.classList.add(this._config.inputErrorClass);
     errorElement.textContent = message;
     errorElement.classList.add(this._config.errorClass);
   };
   // функция скрытия сообщения об ошибке
-  _hideInputError(input, errorElement) {
+  _hideInputError(input) {
+    const errorElement = this._getErrorMessage(input);
     errorElement.classList.remove(this._config.errorClass);
     input.classList.remove(this._config.inputErrorClass);
     errorElement.textContent = '';
@@ -76,9 +67,29 @@ export class FormValidation {
     const input = evt.target;
     this._checkInputValidity(input);
     this._toggleButtonState();
+  };
+
+  disableSubmitButton() {
+    this._buttonElement.setAttribute('disabled', true);
+    this._buttonElement.classList.add(this._config.inactiveButtonClass);
+  };
+
+  _deleteErrorMessages() {
+    this._inputsList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    this._inputsList.forEach(element => {
+      element.classList.remove(this._config.inputErrorClass);
+    })
+    this._errorsList = Array.from(this._formElement.querySelectorAll(`${this._config.inputSelector}-error`));
+    this._errorsList.forEach(element => {
+      element.textContent = '';
+      element.classList.remove(this._config.errorClass);
+    })
   }
   // функция добавления слушателя событий на ВСЕ инпуты в форме
   _addEventListeners(form) {
+    this._formElement.addEventListener('reset', () => {
+      this._deleteErrorMessages();
+    })
     this._inputList = Array.from(form.querySelectorAll(this._config.inputSelector));
     this._buttonElement = form.querySelector(this._config.submitButtonSelector);
     this._toggleButtonState();
@@ -91,6 +102,7 @@ export class FormValidation {
   };
   // поиск всех форм в документе, отмена для каждой стандартного поведения и добавление слушателей событий на все формы
   enableValidation() {
-      this._addEventListeners(this._formElement);
+    this._addEventListeners(this._formElement);
   };
+
 };
