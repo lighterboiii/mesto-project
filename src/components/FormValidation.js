@@ -75,8 +75,7 @@ export class FormValidation {
   };
 
   _deleteErrorMessages() {
-    this._inputsList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-    this._inputsList.forEach(element => {
+    this._inputList.forEach(element => {
       element.classList.remove(this._config.inputErrorClass);
     })
     this._errorsList = Array.from(this._formElement.querySelectorAll(`${this._config.inputSelector}-error`));
@@ -87,13 +86,13 @@ export class FormValidation {
   }
   // функция добавления слушателя событий на ВСЕ инпуты в форме
   _addEventListeners(form) {
-    this._formElement.addEventListener('reset', () => {
-      this._deleteErrorMessages();
-    })
     this._inputList = Array.from(form.querySelectorAll(this._config.inputSelector));
     this._buttonElement = form.querySelector(this._config.submitButtonSelector);
-    this._toggleButtonState();
 
+    this._formElement.addEventListener('reset', () => {
+      this._deleteErrorMessages();
+    });
+    this._toggleButtonState();
     this._inputList.forEach((input) => {
       input.addEventListener('input', (evt) => {
         this._inputChecker(evt);
@@ -104,5 +103,4 @@ export class FormValidation {
   enableValidation() {
     this._addEventListeners(this._formElement);
   };
-
 };
