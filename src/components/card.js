@@ -57,7 +57,7 @@ export default class Card {
 
   setCountLikeToPage(likes) {
     this._likes = likes;
-    this._card.querySelector(".like-count").textContent = likes.length;
+    this._elementLikes.textContent = likes.length;
   }
 
   setEventListeners() {
