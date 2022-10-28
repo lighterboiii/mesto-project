@@ -56,7 +56,6 @@ function addCardToPage(dataCard) {
     {
       handleClickImage: () => {
         const cardInfo = card.getCardInfo();
-        imagePopup.setEventListeners();
         imagePopup.open(cardInfo);
       },
       handleDeleteClick: () => handleDeleteClick(card),
